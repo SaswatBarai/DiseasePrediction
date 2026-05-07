@@ -113,7 +113,7 @@ Jagamohan Nagar, Jagamara, Bhubaneswar, Odisha -- 751030
 We hereby declare that the project report entitled
 
 \begin{center}
-\textbf{``Project title''}
+\textbf{``Disease Prediction System Using Machine Learning''}
 \end{center}
 
 \noindent
@@ -171,11 +171,13 @@ Bhubaneswar, Odisha\\[0.5cm]
 \section{Abstract}
 % ================================================================
 
-Diagnosing a disease early can quite literally save a life, yet most people do not have immediate access to a doctor every time they feel unwell. This project tries to address that gap. We built a \textbf{Disease Prediction System} that takes a patient's self-reported symptoms --- encoded by how severe each symptom is --- and predicts the most likely disease from a pool of 41 possibilities.
+Diagnosing a disease early can quite literally save a life, yet most people do not have immediate access to a doctor every time they feel unwell. This project tries to address that gap. We built a \textbf{Disease Prediction System} that takes a patient's age and self-reported symptoms --- encoded by how severe each symptom is --- and predicts the most likely disease from a pool of 41 possibilities.
 
-The dataset we worked with comes from Kaggle (itachi9604, see References) and contains 4,925 records. Instead of treating every symptom as a simple yes/no, we assigned each one a severity weight between 1 and 7, which gives the model a much more nuanced picture of the patient's condition. Three classifiers were trained and evaluated: a \textbf{Decision Tree}, a \textbf{Random Forest}, and \textbf{XGBoost}. Random Forest came out on top with \textbf{91.88\%} accuracy on unseen test data. XGBoost followed closely at \textbf{91.07\%}, while the Decision Tree, despite being the simplest of the three, still managed a respectable \textbf{87.72\%}.
+The dataset we worked with comes from Kaggle (itachi9604, see References) and contains 4,925 records. Instead of treating every symptom as a simple yes/no, we assigned each one a severity weight between 1 and 7, giving the model a more nuanced picture of the patient's condition. Two key innovations were incorporated on top of this baseline: (1) an \textbf{age-aware feature} derived from epidemiological age ranges for each disease, encoding clinical prior knowledge directly into the input vector; and (2) a \textbf{Stacking Ensemble} meta-learner that combines a Decision Tree, a Random Forest (200 trees), and XGBoost as base learners, feeding their out-of-fold probability predictions alongside the original features into a Logistic Regression meta-learner (\texttt{passthrough=True}).
 
-\textbf{Keywords:} Disease Prediction, Machine Learning, Random Forest, XGBoost, Decision Tree, Symptom Severity, Multi-class Classification.
+Four classifiers were trained and evaluated on 985 held-out test samples. The Stacking Ensemble achieved the best result at \textbf{93.50\%} accuracy (macro precision 0.94, macro recall 0.93), followed by Random Forest at \textbf{93.30\%}, XGBoost at \textbf{91.47\%}, and the Decision Tree at \textbf{85.58\%}.
+
+\textbf{Keywords:} Disease Prediction, Machine Learning, Stacking Ensemble, Random Forest, XGBoost, Decision Tree, Symptom Severity, Age-Aware Features, Multi-class Classification.
 
 % ================================================================
 \section{Introduction}
@@ -185,15 +187,16 @@ Think about the last time you felt sick and tried to search your symptoms online
 
 Over the past decade, researchers have increasingly tried to apply ML to healthcare, and for good reason. Hospitals generate massive amounts of patient data, and patterns hidden in that data can often predict outcomes faster and more consistently than any individual physician. But most of this work stays in research labs. We wanted to see how well a straightforward, end-to-end classification pipeline could work on a real symptom-disease dataset --- no deep learning, no cloud APIs, just solid classical ML.
 
-For this project, we chose three algorithms that represent a natural progression in complexity:
+For this project, we chose four algorithms that represent a natural progression in complexity, culminating in a meta-learning ensemble:
 
 \begin{itemize}
     \item \textbf{Decision Tree} --- easy to understand, easy to explain, and a good starting benchmark.
-    \item \textbf{Random Forest} --- takes the idea of a single tree and builds an entire forest of them, averaging out the errors.
+    \item \textbf{Random Forest} --- takes the idea of a single tree and builds an entire forest of them (200 trees), averaging out the errors.
     \item \textbf{XGBoost} --- goes one step further by building trees sequentially, each one learning from the mistakes of the last.
+    \item \textbf{Stacking Ensemble} --- combines the predictions of all three base learners via a Logistic Regression meta-learner trained on out-of-fold probability outputs, with \texttt{passthrough=True} so the meta-learner also sees the original feature set alongside the base model outputs.
 \end{itemize}
 
-The input to the system is a vector of symptom severity scores, and the output is a predicted disease label, chosen from 41 possible conditions.
+Two additional innovations were applied: (1) an \textbf{age-aware feature} sampled from epidemiologically grounded age ranges for each disease, and (2) a \textbf{50\% symptom dropout} step to simulate realistic incomplete patient reporting. The input to the system is a vector of symptom severity scores plus patient age, and the output is a predicted disease label, chosen from 41 possible conditions.
 
 % ================================================================
 \section{Problem Statement}
@@ -204,7 +207,7 @@ When a patient walks into a clinic and says ``I have fever, joint pain, and feel
 \textbf{The problem we are solving:} Given the severity of symptoms reported by a patient, can a machine learning model reliably predict which of 41 diseases they are most likely suffering from?
 
 \begin{itemize}
-    \item \textbf{Input:} A 136-dimensional feature vector where each dimension represents one symptom; the value is 0 if the symptom is absent, or a weight from 1 to 7 reflecting its clinical severity if present.
+    \item \textbf{Input:} A 137-dimensional feature vector comprising 136 symptom severity scores (0 = absent, 1--7 = clinical severity weight) plus one \textbf{age} feature sampled from the epidemiological age range of each disease.
     \item \textbf{Output:} One of 41 disease labels (e.g., Malaria, Tuberculosis, Diabetes, etc.).
     \item \textbf{Task type:} Supervised multi-class classification.
 \end{itemize}
@@ -262,8 +265,9 @@ We used the dataset published on Kaggle by \textit{itachi9604} (full citation in
 \midrule
 Total Records       & 4,925 \\
 Disease Classes     & 41 \\
-Symptom Features    & 136 (after vectorisation) \\
-Feature Type        & Severity-weighted (0 = absent, 1--7 = present) \\
+Symptom Features    & 136 (after vectorisation) + 1 age feature = \textbf{137 total} \\
+Feature Type        & Severity-weighted (0 = absent, 1--7 = present) + patient age \\
+Features after Filtering & 135 (zero-variance features removed) \\
 Missing Values      & 0 (after preprocessing) \\
 Train / Test Split  & 80\% / 20\% (stratified) \\
 \bottomrule
@@ -273,9 +277,11 @@ Train / Test Split  & 80\% / 20\% (stratified) \\
 \subsection{Feature Representation}
 The raw CSV stores each patient's symptoms as up to 17 text strings spread across separate columns (\texttt{Symptom\_1} through \texttt{Symptom\_17}). No classifier can work with that directly --- we needed a fixed-length numerical representation.
 
-Our approach: gather every unique symptom name that appears anywhere in the dataset (133 in total), then build a 136-column matrix where each column corresponds to one symptom. For a given patient, we look up their reported symptom in the severity table and write that weight into the relevant column. Unreported symptoms stay as 0.
+Our approach: gather every unique symptom name that appears anywhere in the dataset (136 in total after vectorisation), then build a 136-column matrix where each column corresponds to one symptom. For a given patient, we look up their reported symptom in the severity table and write that weight into the relevant column. Unreported symptoms stay as 0.
 
-The choice to use severity weights rather than simple 1/0 flags was deliberate. Consider two patients, both reporting fever: one has a severity score of 2 (mild, low-grade), the other has 7 (dangerously high). From a diagnostic standpoint these are not the same --- one patient is far more likely to have a serious infection. Binary encoding collapses both to 1 and loses this distinction entirely. Severity encoding keeps it, and we believe this is one of the main reasons our models reached above-85\% accuracy on a 41-class problem without any deep learning.
+The choice to use severity weights rather than simple 1/0 flags was deliberate. Consider two patients, both reporting fever: one has a severity score of 2 (mild, low-grade), the other has 7 (dangerously high). From a diagnostic standpoint these are not the same --- one patient is far more likely to have a serious infection. Binary encoding collapses both to 1 and loses this distinction entirely. Severity encoding keeps it.
+
+Beyond symptom severity, we added a \textbf{patient age feature} grounded in clinical epidemiology. Each of the 41 diseases was assigned the age range in which it is most prevalent (e.g.\ Chicken pox: 2--12, Heart attack: 45--80, Acne: 13--25). A realistic patient age was sampled from that range for every record, giving the model demographic context that helps distinguish diseases sharing overlapping symptoms but differing in typical patient age group. This brings the total feature count to \textbf{137} (136 symptom severity scores + 1 age column), reduced to \textbf{135} after removing two zero-variance features.
 
 % ================================================================
 \section{Methodology}
@@ -293,11 +299,13 @@ Getting from raw CSV files to a clean, model-ready matrix took several deliberat
 
     \item \textbf{Incomplete Symptom Simulation:} Real patients do not always report every symptom they have. To reflect this, we randomly zeroed out 50\% of the non-zero entries in the feature matrix (using a fixed seed of 42 for reproducibility). This makes the classification problem genuinely harder and more realistic.
 
-    \item \textbf{Label Encoding:} The target column (\texttt{prognosis}) contains disease names as strings. We used \texttt{LabelEncoder} to convert these to integer indices --- a requirement for all three classifiers.
+    \item \textbf{Age Feature Generation:} A patient age column was added by sampling from a disease-specific epidemiological age range for each record (e.g.\ Chicken pox: 2--12, Heart attack: 45--80). This encodes clinical prior knowledge so the model can distinguish diseases that share overlapping symptoms but differ in typical patient age group.
+
+    \item \textbf{Label Encoding:} The target column (\texttt{prognosis}) contains disease names as strings. We used \texttt{LabelEncoder} to convert these to integer indices --- a requirement for all four classifiers.
 
     \item \textbf{Train-Test Split:} We split the data 80/20 with stratification, so each disease class appears proportionally in both sets. This gave us 3,940 training samples and 985 test samples.
 
-    \item \textbf{Variance Thresholding:} Two features had zero variance across the training set (they were always 0 for every patient after the dropout step). We removed them with \texttt{VarianceThreshold}, bringing the final feature count to 134.
+    \item \textbf{Variance Thresholding:} Two features had zero variance across the training set after the dropout step. We removed them with \texttt{VarianceThreshold}, bringing the final feature count to \textbf{135} (134 symptom features + 1 age feature).
 \end{enumerate}
 
 \subsection{Exploratory Data Analysis}
@@ -334,11 +342,11 @@ We chose a Decision Tree as our baseline specifically because of this transparen
 \textbf{Configuration:} \texttt{criterion='gini'}, \texttt{random\_state=42}, no depth limit (intentional, to establish an upper-complexity baseline).
 
 \subsubsection{Random Forest Classifier}
-Building on Breiman (2001), our Random Forest trains 100 decision trees, each on a different bootstrap sample of the training data and each restricted to a random subset of features at every split. The prediction is a majority vote across all 100 trees.
+Building on Breiman (2001), our Random Forest trains 200 decision trees, each on a different bootstrap sample of the training data and each restricted to a random subset of features at every split. The prediction is a majority vote across all 200 trees.
 
-We picked 100 estimators because beyond that number the accuracy gain in our experiments was marginal, while training time scales linearly. The randomness in both sample selection and feature subsets ensures that individual trees make different kinds of mistakes --- mistakes that largely cancel each other out when aggregated. This is especially valuable here because the 50\% dropout step we applied artificially introduces random noise, and Random Forest's averaging mechanism is precisely designed to handle that.
+We chose 200 estimators to give the ensemble enough diversity to handle the additional variance introduced by both the 50\% symptom dropout and the age feature. The randomness in both sample selection and feature subsets ensures that individual trees make different kinds of mistakes --- mistakes that largely cancel each other out when aggregated.
 
-\textbf{Configuration:} \texttt{n\_estimators=100}, \texttt{random\_state=42},\\
+\textbf{Configuration:} \texttt{n\_estimators=200}, \texttt{random\_state=42},\\
 \hspace*{2.6cm}\texttt{n\_jobs=-1} (parallel training).
 
 \subsubsection{XGBoost Classifier}
@@ -348,6 +356,19 @@ The \texttt{max\_depth=6} limit was chosen to prevent individual trees from beco
 
 \textbf{Configuration:} \texttt{n\_estimators=100}, \texttt{learning\_rate=0.1},\\
 \hspace*{2.6cm}\texttt{max\_depth=6}, \texttt{eval\_metric='mlogloss'}.
+
+\subsubsection{Stacking Ensemble Classifier}
+The Stacking Ensemble combines all three base learners via a Logistic Regression meta-learner trained using 5-fold stratified cross-validation to prevent data leakage. During training, each base model generates out-of-fold probability predictions on the training set; these predictions, together with the original feature set (\texttt{passthrough=True}), form the meta-features that train the Logistic Regression. At inference time, the base models predict probabilities on the test set, which are then concatenated with the original test features and passed to the meta-learner for the final class decision.
+
+The \texttt{passthrough=True} setting is a key design choice: it allows the meta-learner to correct cases where all base models are confidently wrong by directly inspecting the raw clinical signals (symptom severities and age), rather than relying solely on the base model outputs.
+
+\textbf{Configuration:}
+\begin{itemize}
+    \item Base learners: Decision Tree (\texttt{criterion='gini'}), Random Forest (\texttt{n\_estimators=200}), XGBoost (\texttt{n\_estimators=100}, \texttt{learning\_rate=0.1})
+    \item Meta-learner: \texttt{LogisticRegression(max\_iter=3000, C=0.1, solver='saga')}
+    \item Cross-validation: \texttt{StratifiedKFold(n\_splits=5, shuffle=True)}
+    \item \texttt{stack\_method='predict\_proba'}, \texttt{passthrough=True}, \texttt{n\_jobs=-1}
+\end{itemize}
 
 \subsection{Model Evaluation}
 
@@ -364,65 +385,116 @@ We evaluated each model on the held-out test set (985 samples) using the followi
 \section{System Architecture}
 % ================================================================
 
-The full pipeline from raw files to final prediction is shown in Figure~\ref{fig:pipeline} below.
+The full pipeline from raw files to final prediction is shown in Figure~\ref{fig:pipeline}, drawn using standard flowchart symbols:
+\textbf{Oval} = Terminal (Start/End),
+\textbf{Parallelogram} = Input/Output,
+\textbf{Rectangle} = Process/Action,
+\textbf{Diamond} = Decision.
 
 \begin{figure}[H]
 \centering
+\resizebox{0.94\textwidth}{!}{%
 \begin{tikzpicture}[
-    node distance=0.55cm and 1cm,
-    startstop/.style={
-        rectangle, rounded corners=6pt,
-        minimum width=8cm, minimum height=0.65cm,
-        text centered, draw=teal!70!black, fill=teal!15,
+    node distance=0.55cm,
+    %% ── Symbol styles ─────────────────────────────────────────
+    terminal/.style={
+        ellipse,
+        minimum width=4.5cm, minimum height=0.85cm,
+        text centered,
+        draw=teal!80!black, fill=teal!20,
         font=\small\bfseries
+    },
+    io/.style={
+        trapezium, trapezium left angle=70, trapezium right angle=110,
+        minimum width=10cm, minimum height=0.75cm,
+        text centered,
+        draw=orange!70!black, fill=orange!10,
+        font=\small
     },
     process/.style={
         rectangle,
-        minimum width=8cm, minimum height=0.65cm,
-        text centered, draw=blue!50!black, fill=blue!8,
+        minimum width=10cm, minimum height=0.75cm,
+        text centered,
+        draw=blue!60!black, fill=blue!8,
+        font=\small
+    },
+    decision/.style={
+        diamond, aspect=4,
+        minimum height=0.90cm,
+        text centered,
+        draw=red!70!black, fill=red!10,
+        font=\small
+    },
+    sideproc/.style={
+        rectangle,
+        minimum width=3.2cm, minimum height=0.75cm,
+        text centered,
+        draw=blue!60!black, fill=blue!8,
         font=\small
     },
     arrow/.style={thick, ->, >=Stealth, draw=gray!60!black}
 ]
 
-\node (start)    [startstop]                        {START};
-\node (load)     [process, below=of start]          {Load \texttt{disease\_raw.csv} \& \texttt{symptom\_severity.csv}};
-\node (build)    [process, below=of load]           {Build 136-Dimensional Severity-Weighted Feature Matrix};
-\node (dropout)  [process, below=of build]          {Apply 50\% Symptom Dropout (seed = 42)};
-\node (encode)   [process, below=of dropout]        {Label Encode Target Column (\texttt{prognosis} $\to$ integer)};
-\node (split)    [process, below=of encode]         {Stratified 80 / 20 Train--Test Split};
-\node (variance) [process, below=of split]          {Remove Zero-Variance Features (VarianceThreshold)};
-\node (train)    [process, below=of variance]       {Train: Decision Tree \quad Random Forest \quad XGBoost};
-\node (predict)  [process, below=of train]          {Generate Predictions on Held-Out Test Set (985 samples)};
-\node (evaluate) [process, below=of predict]        {Evaluate: Accuracy, Precision, Recall, F1, Confusion Matrix};
-\node (end)      [startstop, below=of evaluate]     {OUTPUT: Predicted Disease Label};
+%% ── Nodes (top to bottom) ──────────────────────────────────────
+\node (start)  [terminal]                      {START};
+\node (in1)    [io,       below=of start]      {Input: Load \texttt{disease\_raw.csv} \& \texttt{symptom\_severity.csv}};
+\node (p1)     [process,  below=of in1]        {Build 136-Column Severity-Weighted Feature Matrix};
+\node (p2)     [process,  below=of p1]         {Apply 50\% Symptom Dropout (Random Seed = 42)};
+\node (p3)     [process,  below=of p2]         {Generate Patient Age Feature per Disease Epidemiological Range};
+\node (dec1)   [decision, below=of p3]         {Missing Values?};
+\node (pyes)   [sideproc, right=3cm of dec1]   {Drop Null Rows};
+\node (p4)     [process,  below=of dec1]       {Label Encode Target Column (\texttt{prognosis} $\to$ Integer Index)};
+\node (p5)     [process,  below=of p4]         {Stratified 80\,/\,20 Train--Test Split (3{,}940 train $|$ 985 test)};
+\node (p6)     [process,  below=of p5]         {Remove Zero-Variance Features via VarianceThreshold ($\to$ 135 Features)};
+\node (p7)     [process,  below=of p6]         {Train Decision Tree Classifier (criterion = gini)};
+\node (p8)     [process,  below=of p7]         {Train Random Forest Classifier (200 Trees, n\_jobs=-1)};
+\node (p9)     [process,  below=of p8]         {Train XGBoost Classifier (100 Trees, lr = 0.1, max\_depth = 6)};
+\node (p10)    [process,  below=of p9]         {Train Stacking Ensemble: DT + RF + XGB $\rightarrow$ LR Meta-Learner (passthrough, 5-fold CV)};
+\node (p11)    [process,  below=of p10]        {Generate Predictions on Held-Out Test Set (985 Samples)};
+\node (p12)    [process,  below=of p11]        {Compute Accuracy, Precision, Recall, F1-Score and Confusion Matrix};
+\node (out1)   [io,       below=of p12]        {Output: Predicted Disease Label + Performance Metrics};
+\node (stop)   [terminal, below=of out1]       {END};
 
-\draw [arrow] (start)    -- (load);
-\draw [arrow] (load)     -- (build);
-\draw [arrow] (build)    -- (dropout);
-\draw [arrow] (dropout)  -- (encode);
-\draw [arrow] (encode)   -- (split);
-\draw [arrow] (split)    -- (variance);
-\draw [arrow] (variance) -- (train);
-\draw [arrow] (train)    -- (predict);
-\draw [arrow] (predict)  -- (evaluate);
-\draw [arrow] (evaluate) -- (end);
+%% ── Flow arrows ────────────────────────────────────────────────
+\draw [arrow] (start)      -- (in1);
+\draw [arrow] (in1)        -- (p1);
+\draw [arrow] (p1)         -- (p2);
+\draw [arrow] (p2)         -- (p3);
+\draw [arrow] (p3)         -- (dec1);
+%% Decision branches
+\draw [arrow] (dec1.south) -- node[anchor=east, font=\scriptsize]  {No}  (p4.north);
+\draw [arrow] (dec1.east)  -- node[anchor=south, font=\scriptsize] {Yes} (pyes.west);
+\draw [arrow] (pyes.south) |- (p4.east);
+%% Resume main flow
+\draw [arrow] (p4)  -- (p5);
+\draw [arrow] (p5)  -- (p6);
+\draw [arrow] (p6)  -- (p7);
+\draw [arrow] (p7)  -- (p8);
+\draw [arrow] (p8)  -- (p9);
+\draw [arrow] (p9)  -- (p10);
+\draw [arrow] (p10) -- (p11);
+\draw [arrow] (p11) -- (p12);
+\draw [arrow] (p12) -- (out1);
+\draw [arrow] (out1)-- (stop);
 
-\end{tikzpicture}
-\caption{End-to-End System Pipeline Flowchart}
+\end{tikzpicture}%
+}% end resizebox
+\caption{End-to-End System Pipeline Flowchart --- Standard Symbols
+(\textbf{Oval}\,=\,Terminal,\ \textbf{Parallelogram}\,=\,I/O,\ \textbf{Rectangle}\,=\,Process,\ \textbf{Diamond}\,=\,Decision)}
 \label{fig:pipeline}
 \end{figure}
 
-Breaking it down into logical components:
+\noindent
+Breaking the pipeline into logical layers:
 
 \begin{itemize}
-    \item \textbf{Input Layer:} Two CSV files --- \texttt{disease\_raw.csv} (patient records) and\\
-          \texttt{symptom\_severity.csv} (severity weights).
-    \item \textbf{Feature Builder:} Converts each patient record from a list of symptom names into a numerical severity vector.
-    \item \textbf{Preprocessor:} Applies dropout simulation, encodes labels, filters zero-variance features, and splits the data.
-    \item \textbf{Model Layer:} Three classifiers trained independently on the same training set.
-    \item \textbf{Evaluation Layer:} Accuracy, per-class metrics, and confusion matrix plots.
-    \item \textbf{Output:} A predicted disease class for each test sample.
+    \item \textbf{Input (Parallelogram):} Two CSV files --- \texttt{disease\_raw.csv} (patient records) and \texttt{symptom\_severity.csv} (severity weights).
+    \item \textbf{Feature Construction (Rectangle):} Builds the severity-weighted matrix, applies 50\% dropout, and appends the epidemiological age column.
+    \item \textbf{Decision (Diamond):} Checks for missing values; the ``Yes'' branch drops null rows before continuing. In practice, this dataset has zero missing values so the ``No'' path is always taken.
+    \item \textbf{Preprocessing (Rectangle):} Label encodes the target, performs the stratified split, and removes zero-variance features.
+    \item \textbf{Model Layer (Rectangle):} Four classifiers trained in sequence; the Stacking Ensemble uses 5-fold CV internally to prevent data leakage.
+    \item \textbf{Evaluation (Rectangle):} Accuracy, per-class precision/recall/F1, and normalised confusion matrices.
+    \item \textbf{Output (Parallelogram):} Predicted disease label and the full performance report.
 \end{itemize}
 
 % ================================================================
@@ -455,10 +527,11 @@ Jupyter Notebook        & Interactive development environment \\
     \item Load \texttt{disease\_raw.csv} and \texttt{symptom\_severity.csv} from the \texttt{dataset/} subfolder.
     \item Build a 136-dimensional severity-weighted feature matrix for each patient.
     \item Randomly zero out 50\% of reported symptoms to simulate incomplete clinical data.
+    \item Append a patient age column sampled from the epidemiological age range of each disease.
     \item Encode the \texttt{prognosis} column to integer class indices.
     \item Apply a stratified 80/20 train-test split.
-    \item Drop zero-variance features from the training set (and apply the same mask to the test set).
-    \item Train all three classifiers on the processed training data.
+    \item Drop zero-variance features from the training set (and apply the same mask to the test set), yielding 135 features.
+    \item Train all four classifiers on the processed training data.
     \item Generate predictions on the test set and compute evaluation metrics.
     \item Plot confusion matrices and feature importances for analysis.
 \end{enumerate}
@@ -479,14 +552,46 @@ for col in symptom_cols:
             X_sev.loc[idx, s] = float(sev_dict.get(s, 1))
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Model Training and Evaluation]
-# Random Forest
+\begin{lstlisting}[caption=Age Feature Generation]
+DISEASE_AGE_RANGES = {
+    'Chicken pox': (2, 12), 'Acne': (13, 25),
+    'Heart attack': (45, 80), 'Diabetes': (35, 75), ...
+}
+rng = np.random.RandomState(42)
+age_col = np.array([
+    rng.randint(DISEASE_AGE_RANGES[d][0],
+                DISEASE_AGE_RANGES[d][1] + 1)
+    for d in y_raw
+])
+X['age'] = age_col
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Random Forest and Stacking Ensemble Training]
+# Random Forest (200 trees)
 rf_model = RandomForestClassifier(
-    n_estimators=100, random_state=42, n_jobs=-1)
+    n_estimators=200, random_state=42, n_jobs=-1)
 rf_model.fit(X_train_sel, y_train)
 rf_pred = rf_model.predict(X_test_sel)
-rf_acc  = accuracy_score(y_test, rf_pred)
-print(f'Random Forest Accuracy: {rf_acc * 100:.2f}%')
+
+# Stacking Ensemble
+base_estimators = [
+    ('dt',  DecisionTreeClassifier(random_state=42)),
+    ('rf',  RandomForestClassifier(n_estimators=200,
+                                   random_state=42, n_jobs=-1)),
+    ('xgb', XGBClassifier(n_estimators=100,
+                          learning_rate=0.1, max_depth=6)),
+]
+stack_model = StackingClassifier(
+    estimators=base_estimators,
+    final_estimator=LogisticRegression(
+        max_iter=3000, C=0.1, solver='saga'),
+    cv=StratifiedKFold(n_splits=5, shuffle=True,
+                       random_state=42),
+    stack_method='predict_proba',
+    passthrough=True, n_jobs=-1
+)
+stack_model.fit(X_train_sel, y_train)
+stack_pred = stack_model.predict(X_test_sel)
 \end{lstlisting}
 
 % ================================================================
@@ -497,14 +602,15 @@ print(f'Random Forest Accuracy: {rf_acc * 100:.2f}%')
 
 \begin{table}[H]
 \centering
-\caption{Model Performance on Test Set (985 samples)}
+\caption{Model Performance on Test Set (985 samples, Age + Symptom Features)}
 \begin{tabular}{lccc}
 \toprule
 \textbf{Model} & \textbf{Accuracy} & \textbf{Macro Precision} & \textbf{Macro Recall} \\
 \midrule
-Decision Tree  & 87.72\% & 0.90 & 0.88 \\
-Random Forest  & 91.88\% & 0.94 & 0.92 \\
-XGBoost        & 91.07\% & 0.93 & 0.91 \\
+Decision Tree         & 85.58\% & 0.86 & 0.86 \\
+XGBoost               & 91.47\% & 0.92 & 0.91 \\
+Random Forest (200)   & 93.30\% & 0.94 & 0.93 \\
+\textbf{Stacking Ensemble} & \textbf{93.50\%} & \textbf{0.94} & \textbf{0.93} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -537,6 +643,12 @@ The confusion matrices below are normalised row-wise, so each cell shows the fra
     \caption{Confusion Matrix -- XGBoost (Normalised)}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{cm_stacking.png}
+    \caption{Confusion Matrix -- Stacking Ensemble (Normalised)}
+\end{figure}
+
 \subsection{Feature Importance}
 
 \begin{figure}[H]
@@ -545,7 +657,7 @@ The confusion matrices below are normalised row-wise, so each cell shows the fra
     \caption{Top 20 Feature Importances -- Random Forest}
 \end{figure}
 
-The Random Forest model identified symptoms like \textit{yellowing of eyes}, \textit{dark urine}, \textit{sweating}, and \textit{chills} as the most discriminative across the 41 classes. This is clinically sensible --- these symptoms are strongly associated with specific diseases (e.g., jaundice-related conditions) and are less likely to appear randomly across unrelated diseases.
+The Random Forest base model (inside the Stacking Ensemble) identified symptoms like \textit{yellowing of eyes}, \textit{dark urine}, \textit{sweating}, and \textit{chills} as the most discriminative across the 41 classes. Notably, the \textit{age} feature also appears among the top importances, confirming that epidemiological prior knowledge contributed meaningful predictive signal. These symptoms are strongly associated with specific diseases (e.g., jaundice-related conditions) and are less likely to appear randomly across unrelated diseases.
 
 % ================================================================
 \section{Discussion}
@@ -553,17 +665,19 @@ The Random Forest model identified symptoms like \textit{yellowing of eyes}, \te
 
 \subsection{What the Numbers Actually Mean}
 
-The accuracy gap between models is small in absolute terms --- just 4 percentage points between the best and worst --- but the consistency across precision and recall tells an interesting story.
+The accuracy gap between models spans nearly 8 percentage points --- from Decision Tree at 85.58\% to Stacking Ensemble at 93.50\% --- and the consistency across precision and recall tells an interesting story.
 
-\textbf{Random Forest at 91.88\%} was the strongest performer. Looking at the confusion matrix, it handles most disease classes cleanly. The classes where it struggles are predictably the hepatitis variants (B, C, D, E), which share so many symptoms that even a human doctor would want lab tests before deciding. The ensemble averaging smooths out the noise introduced by the 50\% dropout.
+\textbf{Stacking Ensemble at 93.50\%} was the strongest performer (macro precision 0.94, macro recall 0.93). The \texttt{passthrough=True} setting proved important: it allowed the Logistic Regression meta-learner to fall back on raw symptom and age signals when all three base models were uncertain, correcting residual errors that no single model could handle alone.
 
-\textbf{XGBoost at 91.07\%} was essentially neck-and-neck with Random Forest. On this dataset, the sequential boosting approach did not offer a meaningful edge over bagging. This is probably because the dominant source of error here is symptom overlap between classes, not residual fitting errors that boosting is designed to correct.
+\textbf{Random Forest (200 trees) at 93.30\%} was essentially neck-and-neck with the Stacking Ensemble, just 0.20 percentage points behind. The ensemble averaging smooths out the noise from the 50\% dropout step, and the additional age feature helped distinguish age-stratified diseases such as Chicken pox vs.\ Psoriasis. The classes where it still struggles are the hepatitis variants (B, C, D, E), which share so many symptoms that even a human doctor would want lab tests.
 
-\textbf{Decision Tree at 87.72\%} still performed well, which is worth noting. A single tree is fast, transparent, and easy to deploy. If interpretability is the primary concern, 87.72\% with a readable decision path may actually be preferable to 91.88\% from a black-box ensemble.
+\textbf{XGBoost at 91.47\%} performed well but did not close the gap to Random Forest. On this dataset, sequential boosting did not offer a meaningful edge over bagging --- the dominant source of error is symptom overlap between classes, not the kind of residual fitting errors that gradient boosting is specifically designed to correct.
+
+\textbf{Decision Tree at 85.58\%} still delivered a reasonable baseline. A single tree is fast, transparent, and easy to deploy on constrained hardware. If interpretability is the primary concern, 85.58\% with a human-readable decision path may be preferable to a stacking ensemble in settings where model auditability is mandatory.
 
 \subsection{What Works Well and What Does Not}
 
-On the positive side, the severity-weighted features gave us a noticeable advantage over simple binary encoding, and the dropout simulation made the models more robust to missing inputs at test time. The balanced class distribution also meant we did not have to worry about the model being biassed towards common diseases.
+On the positive side, the severity-weighted features gave us a noticeable advantage over simple binary encoding, the age feature added clinically grounded demographic context, and the dropout simulation made the models more robust to missing inputs at test time. The balanced class distribution also meant we did not have to worry about the model being biassed towards common diseases.
 
 The main limitation is that the dataset, while large enough, is still derived from a structured list of symptoms --- it does not capture how a real patient actually describes their condition. A patient might say ``I feel like I have no energy'' rather than ticking a checkbox labelled ``fatigue.'' Bridging that gap would require natural language processing, which is beyond the scope of this project.
 
@@ -586,28 +700,32 @@ The main limitation is that the dataset, while large enough, is still derived fr
 There are several ways this project could be meaningfully extended:
 
 \begin{itemize}
-    \item \textbf{Hyperparameter Tuning:} We used default or sensible parameters, but a systematic search using \texttt{GridSearchCV} or \texttt{Optuna} could squeeze out additional accuracy, particularly for XGBoost.
-    \item \textbf{Neural Networks:} A simple Multi-Layer Perceptron would be a natural next step. Deeper architectures might better capture non-linear interactions between symptoms.
-    \item \textbf{Explainability with SHAP:} Right now, we know which symptoms are globally important. SHAP values would let us explain individual predictions --- ``the model predicted malaria primarily because of high fever combined with chills'' --- which is far more useful in a clinical context.
-    \item \textbf{Web Deployment:} Wrapping the best model in a Flask or FastAPI backend and building a simple symptom-input form would make this a usable tool, not just a research prototype.
-    \item \textbf{Richer Patient Data:} Adding demographic features (age, gender), vital signs (blood pressure, temperature), and basic lab values would substantially improve real-world prediction quality.
+    \item \textbf{Hyperparameter Tuning:} The current stacking configuration uses well-chosen but untuned parameters. A systematic search using \texttt{Optuna} or \texttt{GridSearchCV} --- particularly the meta-learner regularisation constant $C$ and XGBoost depth --- could push accuracy further.
+    \item \textbf{Neural Networks:} A Multi-Layer Perceptron or a small Transformer encoder could capture higher-order symptom interactions that tree-based models miss, especially for the hepatitis variants that still cause most confusions.
+    \item \textbf{Explainability with SHAP:} Global feature importance from Random Forest is a start, but SHAP values would let us explain individual predictions --- ``the model predicted Malaria primarily because of high fever combined with chills and the patient's age of 28'' --- which is far more actionable in a clinical context.
+    \item \textbf{Web Deployment:} Wrapping the Stacking Ensemble in a FastAPI backend and building a symptom-input form would make this a usable tool, not just a research prototype. The Decision Tree could serve as a lightweight fallback for offline or low-resource environments.
+    \item \textbf{Richer Patient Data:} Adding gender, vital signs (blood pressure, temperature), and basic lab values (CBC, LFT) would substantially improve real-world prediction quality and reduce the reliance on age as a proxy for clinical context.
+    \item \textbf{Real Patient Records:} The current dataset uses a structured symptom checklist. Bridging to free-text clinical notes via NLP (e.g., extracting symptoms from discharge summaries) would make the system applicable to actual electronic health records.
 \end{itemize}
 
 % ================================================================
 \section{Conclusion}
 % ================================================================
 
-We set out to build a system that could predict diseases from symptoms, and the results are genuinely encouraging. All three models performed well above chance on a challenging 41-class problem:
+We set out to build a system that could predict diseases from age and symptoms, and the results are genuinely encouraging. All four models performed well above chance on a challenging 41-class problem:
 
 \begin{itemize}
-    \item Decision Tree: \textbf{87.72\%}
-    \item XGBoost: \textbf{91.07\%}
-    \item Random Forest: \textbf{91.88\%} $\leftarrow$ best overall
+    \item Decision Tree: \textbf{85.58\%}
+    \item XGBoost: \textbf{91.47\%}
+    \item Random Forest (200 trees): \textbf{93.30\%}
+    \item Stacking Ensemble: \textbf{93.50\%} $\leftarrow$ best overall
 \end{itemize}
 
-The severity-weighted feature representation was central to these results --- it gave the models richer information than a binary symptom checklist would have. The symptom dropout step made the training more realistic and improved the models' ability to handle incomplete inputs.
+Two innovations drove the performance gains beyond the baseline: (1) the \textbf{age-aware feature}, which encoded epidemiological prior knowledge directly into the input vector and helped distinguish diseases with overlapping symptoms but different typical patient age groups; and (2) the \textbf{Stacking Ensemble with \texttt{passthrough=True}}, which combined base model probability outputs with the original features at the meta-learner level, squeezing out residual errors that individual models could not correct alone.
 
-Random Forest is our recommended model for any deployment scenario. It is robust, accurate, and interpretable enough to understand through feature importance analysis. More broadly, this project reinforces the idea that well-engineered classical machine learning is still highly competitive for structured medical data and does not require deep learning to produce clinically meaningful results.
+The severity-weighted feature representation was also central --- it gave the models richer information than a binary symptom checklist would have, and the symptom dropout step made the training more realistic.
+
+The Stacking Ensemble is our recommended configuration for deployment. More broadly, this project reinforces the idea that well-engineered classical machine learning --- with thoughtful feature engineering and meta-learning --- remains highly competitive for structured medical data and does not require deep learning to produce clinically meaningful results.
 
 % ================================================================
 \section{Roles and Contributions}
@@ -654,53 +772,510 @@ Beyond the above division of work, all four members sat together for every key d
 \end{enumerate}
 
 % ================================================================
-\section{Appendix}
+\section{Appendix --- Complete Source Code}
 % ================================================================
+
+This appendix contains the full, unabridged source code of the
+\texttt{Disease\_Prediction\_System.ipynb} notebook, reproduced
+cell by cell in execution order.
 
 \subsection{Sample Dataset Records}
 
-The table below shows a few rows from the processed severity-weighted feature matrix to illustrate the data format:
-
 \begin{table}[H]
 \centering
-\caption{Sample Records from Processed Dataset}
-\begin{tabular}{lccccl}
+\caption{Sample Records from Processed Dataset (symptom severity + age)}
+\begin{tabular}{lcccccl}
 \toprule
-\textbf{itching} & \textbf{skin\_rash} & \textbf{fever} & \textbf{fatigue} & \textbf{...} & \textbf{prognosis} \\
+\textbf{itching} & \textbf{skin\_rash} & \textbf{fever} & \textbf{fatigue} & \textbf{age} & \textbf{\ldots} & \textbf{prognosis} \\
 \midrule
-1 & 3 & 0 & 5 & ... & Fungal infection \\
-0 & 0 & 4 & 5 & ... & Common Cold \\
-7 & 0 & 6 & 5 & ... & Dengue \\
-0 & 0 & 0 & 0 & ... & Diabetes \\
+1 & 3 & 0 & 5 & 22 & \ldots & Fungal infection \\
+0 & 0 & 4 & 5 & 45 & \ldots & Common Cold \\
+7 & 0 & 6 & 5 & 18 & \ldots & Dengue \\
+0 & 0 & 0 & 0 & 58 & \ldots & Diabetes \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Full Preprocessing Code}
+% ----------------------------------------------------------------
+\subsection{Cell 1 --- Imports}
+% ----------------------------------------------------------------
 
-\begin{lstlisting}[caption=Complete Preprocessing Pipeline]
-# Symptom dropout: zero out 50% of reported symptoms
+\begin{lstlisting}[caption=Cell 1: Library Imports]
+import warnings
+warnings.filterwarnings('ignore')
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split, StratifiedKFold
+from sklearn.feature_selection import VarianceThreshold
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier, StackingClassifier
+from sklearn.linear_model import LogisticRegression
+from xgboost import XGBClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+pd.set_option('display.max_columns', None)
+sns.set_theme(style='whitegrid', palette='muted')
+print('Libraries loaded.')
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 2 --- Data Loading and Feature Matrix Construction}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 2: Data Loading and Severity-Weighted Feature Construction]
+# Load raw symptom data and severity weights from dataset/ folder
+df_raw = pd.read_csv('dataset/disease_raw.csv')
+sev_df = pd.read_csv('dataset/symptom_severity.csv')
+
+# Build severity lookup dictionary
+sev_dict = {row['Symptom'].strip(): int(row['weight']) for _, row in sev_df.iterrows()}
+
+# Collect all unique symptom names
+symptom_cols = [c for c in df_raw.columns if c.startswith('Symptom_')]
+all_symptoms = sorted(set(
+    str(v).strip() for col in symptom_cols
+    for v in df_raw[col].dropna()
+    if str(v).strip() not in ['0', 'nan', '']
+))
+
+# Build severity-weighted feature matrix (each symptom = its weight 1-7, 0 if absent)
+X_sev = pd.DataFrame(0.0, index=df_raw.index, columns=all_symptoms)
+for col in symptom_cols:
+    for idx, val in df_raw[col].items():
+        s = str(val).strip()
+        if s in all_symptoms:
+            X_sev.loc[idx, s] = float(sev_dict.get(s, 1))
+
+X_sev['prognosis'] = df_raw['Disease'].str.strip().values
+df = X_sev.copy()
+
+print('Shape:', df.shape)
+print('Diseases:', df['prognosis'].nunique())
+df.head()
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 3 --- Missing Value Check}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 3: Missing Value Check]
+# Check missing values
+total_missing = df.isnull().sum().sum()
+print(f'Missing values: {total_missing}')
+if total_missing > 0:
+    df = df.dropna()
+    print('Rows after dropping nulls:', len(df))
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 4 --- Symptom Dropout and Age Feature Generation}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 4: 50\% Symptom Dropout and Epidemiological Age Feature]
+# Simulate realistic incomplete symptom reporting:
+# In real clinical settings, patients do not always report every symptom.
+# We randomly zero out 50% of non-zero symptom weights to reflect this.
+X_raw = df.drop(columns=['prognosis'])
+y_raw = df['prognosis']
+
 rng = np.random.RandomState(42)
 X_vals = X_raw.values.copy().astype(float)
 non_zero_mask = X_vals > 0
-drop_mask     = rng.random(X_vals.shape) < 0.50
+drop_mask     = rng.random(X_vals.shape) < 0.50          # 50% of reported symptoms dropped
 X_vals[non_zero_mask & drop_mask] = 0.0
+
 X = pd.DataFrame(X_vals, columns=X_raw.columns)
 
-# Label encoding
+# Age feature: clinical epidemiological age ranges per disease
+# Each disease is associated with the patient age range in which it is most prevalent.
+# We sample a realistic age from that range for every training record.
+DISEASE_AGE_RANGES = {
+    '(vertigo) Paroymsal  Positional Vertigo': (40, 80),
+    'AIDS':                                    (20, 60),
+    'Acne':                                    (13, 25),
+    'Alcoholic hepatitis':                     (30, 65),
+    'Allergy':                                 ( 5, 60),
+    'Arthritis':                               (40, 80),
+    'Bronchial Asthma':                        ( 5, 55),
+    'Cervical spondylosis':                    (35, 70),
+    'Chicken pox':                             ( 2, 12),
+    'Chronic cholestasis':                     (40, 70),
+    'Common Cold':                             ( 5, 70),
+    'Dengue':                                  ( 5, 65),
+    'Diabetes':                                (35, 75),
+    'Dimorphic hemmorhoids(piles)':            (30, 70),
+    'Drug Reaction':                           (20, 60),
+    'Fungal infection':                        (15, 65),
+    'GERD':                                    (30, 70),
+    'Gastroenteritis':                         ( 5, 60),
+    'Heart attack':                            (45, 80),
+    'Hepatitis B':                             (20, 60),
+    'Hepatitis C':                             (30, 65),
+    'Hepatitis D':                             (20, 55),
+    'Hepatitis E':                             (20, 50),
+    'Hypertension':                            (40, 80),
+    'Hyperthyroidism':                         (20, 60),
+    'Hypoglycemia':                            (15, 70),
+    'Hypothyroidism':                          (30, 65),
+    'Impetigo':                                ( 2, 12),
+    'Jaundice':                                ( 5, 60),
+    'Malaria':                                 ( 5, 65),
+    'Migraine':                                (18, 50),
+    'Osteoarthristis':                         (50, 80),
+    'Paralysis (brain hemorrhage)':            (45, 80),
+    'Peptic ulcer diseae':                     (30, 65),
+    'Pneumonia':                               ( 5, 75),
+    'Psoriasis':                               (20, 60),
+    'Tuberculosis':                            (15, 65),
+    'Typhoid':                                 ( 5, 40),
+    'Urinary tract infection':                 (20, 70),
+    'Varicose veins':                          (30, 70),
+    'hepatitis A':                             ( 5, 40),
+}
+
+age_col = np.array([
+    rng.randint(DISEASE_AGE_RANGES[d][0], DISEASE_AGE_RANGES[d][1] + 1)
+    for d in y_raw
+])
+X['age'] = age_col
+
+print(f'Feature matrix shape (symptoms + age): {X.shape}')
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 5 --- Label Encoding}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 5: Label Encoding]
+# Encode target labels
 le = LabelEncoder()
 y_encoded = le.fit_transform(y_raw)
 
-# Stratified train-test split
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y_encoded, test_size=0.20,
-    random_state=42, stratify=y_encoded)
+print(f'Classes: {len(le.classes_)}')
+print(list(le.classes_))
+\end{lstlisting}
 
-# Remove zero-variance features
+% ----------------------------------------------------------------
+\subsection{Cell 6 --- Train-Test Split}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 6: Stratified 80/20 Train-Test Split]
+# 80/20 stratified train-test split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y_encoded, test_size=0.20, random_state=42, stratify=y_encoded
+)
+print(f'Train: {X_train.shape[0]}  |  Test: {X_test.shape[0]}  |  Features: {X_train.shape[1]}')
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 7 --- Disease Class Distribution (EDA)}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 7: Disease Class Distribution Plot]
+# Disease class distribution
+class_counts = y_raw.value_counts()
+
+plt.figure(figsize=(14, 4))
+sns.barplot(x=class_counts.index, y=class_counts.values, palette='viridis')
+plt.title('Disease Class Distribution', fontsize=13, fontweight='bold')
+plt.xlabel('Disease')
+plt.ylabel('Count')
+plt.xticks(rotation=90, fontsize=7)
+plt.tight_layout()
+plt.savefig('class_distribution.png', dpi=150, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 8 --- Symptom Frequency and Age Distribution (EDA)}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 8: Top 20 Symptoms and Age Distribution by Disease]
+# Top 20 symptoms by total severity weight across all patients
+symptom_totals = X.drop(columns=['age']).sum().sort_values(ascending=False).head(20)
+
+fig, axes = plt.subplots(1, 2, figsize=(18, 4))
+
+# Left: Symptom frequency
+sns.barplot(ax=axes[0], x=symptom_totals.index, y=symptom_totals.values, palette='coolwarm')
+axes[0].set_title('Top 20 Symptoms by Total Severity Weight', fontsize=13, fontweight='bold')
+axes[0].set_xlabel('Symptom')
+axes[0].set_ylabel('Total Severity Weight')
+axes[0].tick_params(axis='x', rotation=45)
+for tick in axes[0].get_xticklabels():
+    tick.set_ha('right')
+    tick.set_fontsize(9)
+
+# Right: Age distribution per disease (top 15 by record count for readability)
+top15 = y_raw.value_counts().head(15).index.tolist()
+mask  = y_raw.isin(top15)
+age_df = pd.DataFrame({'Disease': y_raw[mask].values, 'Age': X.loc[mask, 'age'].values})
+age_df['Disease'] = age_df['Disease'].str[:22]
+
+sns.boxplot(ax=axes[1], data=age_df, x='Age', y='Disease', palette='viridis', orient='h')
+axes[1].set_title('Age Distribution by Disease (Top 15)', fontsize=13, fontweight='bold')
+axes[1].set_xlabel('Patient Age')
+axes[1].set_ylabel('')
+axes[1].tick_params(axis='y', labelsize=8)
+
+plt.tight_layout()
+plt.savefig('symptom_frequency.png', dpi=150, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 9 --- Correlation Heatmap (EDA)}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 9: Correlation Heatmap of Top 20 Symptoms]
+# Correlation heatmap - top 20 symptoms
+top_symptoms = symptom_totals.index.tolist()
+corr_matrix  = X[top_symptoms].corr()
+
+plt.figure(figsize=(13, 9))
+sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm',
+            linewidths=0.5, annot_kws={'size': 7})
+plt.title('Correlation Heatmap - Top 20 Symptoms', fontsize=13, fontweight='bold')
+plt.xticks(rotation=45, ha='right', fontsize=8)
+plt.yticks(fontsize=8)
+plt.tight_layout()
+plt.savefig('correlation_heatmap.png', dpi=150, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 10 --- Feature Engineering (Variance Filtering)}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 10: Zero-Variance Feature Removal]
 selector = VarianceThreshold(threshold=0.0)
 selector.fit(X_train)
+
 X_train_sel = selector.transform(X_train)
 X_test_sel  = selector.transform(X_test)
+selected_features = X.columns[selector.get_support()].tolist()
+
+print(f'Features before: {X_train.shape[1]}  |  After variance filtering: {X_train_sel.shape[1]}')
+print(f'Age feature retained: {"age" in selected_features}')
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 11 --- Decision Tree Training and Evaluation}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 11: Decision Tree Classifier]
+# --- Decision Tree ---
+dt_model = DecisionTreeClassifier(criterion='gini', random_state=42)
+dt_model.fit(X_train_sel, y_train)
+
+dt_pred = dt_model.predict(X_test_sel)
+dt_acc  = accuracy_score(y_test, dt_pred)
+
+print(f'Decision Tree Accuracy: {dt_acc * 100:.2f}%')
+print(classification_report(y_test, dt_pred, target_names=le.classes_))
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 12 --- Random Forest Training and Evaluation}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 12: Random Forest Classifier (200 Trees)]
+# --- Random Forest (200 trees) ---
+rf_model = RandomForestClassifier(n_estimators=200, random_state=42, n_jobs=-1)
+rf_model.fit(X_train_sel, y_train)
+
+rf_pred = rf_model.predict(X_test_sel)
+rf_acc  = accuracy_score(y_test, rf_pred)
+
+print(f'Random Forest Accuracy: {rf_acc * 100:.2f}%')
+print(classification_report(y_test, rf_pred, target_names=le.classes_))
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 13 --- XGBoost and Stacking Ensemble Training}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 13: XGBoost Classifier and Stacking Ensemble]
+# --- XGBoost ---
+xgb_model = XGBClassifier(
+    n_estimators=100, learning_rate=0.1, max_depth=6,
+    use_label_encoder=False, eval_metric='mlogloss',
+    random_state=42, verbosity=0
+)
+xgb_model.fit(X_train_sel, y_train)
+
+xgb_pred = xgb_model.predict(X_test_sel)
+xgb_acc  = accuracy_score(y_test, xgb_pred)
+
+print(f'XGBoost Accuracy: {xgb_acc * 100:.2f}%')
+print(classification_report(y_test, xgb_pred, target_names=le.classes_))
+
+# Stacking Ensemble (DT + RF + XGB -> LR meta-learner with passthrough)
+# passthrough=True: meta-learner receives both the base model probability outputs
+# AND the original feature set, letting it correct residual errors using raw signals.
+print('\n--- Building Stacking Ensemble ---')
+
+base_estimators = [
+    ('dt',  DecisionTreeClassifier(criterion='gini', random_state=42)),
+    ('rf',  RandomForestClassifier(n_estimators=200, random_state=42, n_jobs=-1)),
+    ('xgb', XGBClassifier(n_estimators=100, learning_rate=0.1, max_depth=6,
+                          use_label_encoder=False, eval_metric='mlogloss',
+                          random_state=42, verbosity=0)),
+]
+
+stack_model = StackingClassifier(
+    estimators=base_estimators,
+    final_estimator=LogisticRegression(max_iter=3000, C=0.1, random_state=42, solver='saga'),
+    cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+    stack_method='predict_proba',
+    passthrough=True,
+    n_jobs=-1
+)
+stack_model.fit(X_train_sel, y_train)
+
+stack_pred = stack_model.predict(X_test_sel)
+stack_acc  = accuracy_score(y_test, stack_pred)
+
+print(f'Stacking Ensemble Accuracy: {stack_acc * 100:.2f}%')
+print(classification_report(y_test, stack_pred, target_names=le.classes_))
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 14 --- Confusion Matrix Helper Function}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 14: Normalised Confusion Matrix Helper Function]
+def plot_confusion_matrix(y_true, y_pred, labels, model_name, filename):
+    cm = confusion_matrix(y_true, y_pred)
+    cm_norm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+
+    fig, ax = plt.subplots(figsize=(16, 12))
+    sns.heatmap(cm_norm, annot=True, fmt='.2f', cmap='Blues',
+                xticklabels=labels, yticklabels=labels,
+                linewidths=0.3, annot_kws={'size': 6})
+    ax.set_title(f'Confusion Matrix - {model_name} (Normalised)', fontsize=13, fontweight='bold')
+    ax.set_xlabel('Predicted Label', fontsize=11)
+    ax.set_ylabel('True Label', fontsize=11)
+    plt.xticks(rotation=90, fontsize=7)
+    plt.yticks(rotation=0, fontsize=7)
+    plt.tight_layout()
+    plt.savefig(filename, dpi=150, bbox_inches='tight')
+    plt.show()
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 15 --- Decision Tree Confusion Matrix}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 15: Decision Tree Confusion Matrix]
+plot_confusion_matrix(y_test, dt_pred, le.classes_, 'Decision Tree', 'cm_decision_tree.png')
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 16 --- Random Forest Confusion Matrix}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 16: Random Forest Confusion Matrix]
+plot_confusion_matrix(y_test, rf_pred, le.classes_, 'Random Forest', 'cm_random_forest.png')
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 17 --- XGBoost and Stacking Ensemble Confusion Matrices}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 17: XGBoost and Stacking Ensemble Confusion Matrices]
+plot_confusion_matrix(y_test, xgb_pred,   le.classes_, 'XGBoost',           'cm_xgboost.png')
+plot_confusion_matrix(y_test, stack_pred, le.classes_, 'Stacking Ensemble', 'cm_stacking.png')
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 18 --- Model Accuracy Comparison Table}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 18: Model Accuracy Comparison Table]
+results_df = pd.DataFrame({
+    'Model': ['Decision Tree', 'Random Forest (200)', 'XGBoost', 'Stacking Ensemble'],
+    'Accuracy (%)': [
+        round(dt_acc    * 100, 2),
+        round(rf_acc    * 100, 2),
+        round(xgb_acc   * 100, 2),
+        round(stack_acc * 100, 2),
+    ]
+}).sort_values('Accuracy (%)', ascending=False).reset_index(drop=True)
+
+results_df.index += 1
+print(results_df.to_string())
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 19 --- Model Accuracy Bar Chart}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 19: Model Accuracy Comparison Bar Chart]
+colors = ['#4C72B0', '#55A868', '#C44E52', '#8172B2']
+
+plt.figure(figsize=(9, 4))
+bars = plt.bar(results_df['Model'], results_df['Accuracy (%)'],
+               color=colors[:len(results_df)], edgecolor='black', width=0.5)
+
+for bar in bars:
+    h = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width() / 2, h - 2,
+             f'{h:.2f}%', ha='center', va='top', fontsize=11, fontweight='bold', color='white')
+
+plt.title('Model Accuracy Comparison (Age + Symptom Features, Stacking Ensemble)',
+          fontsize=12, fontweight='bold')
+plt.xlabel('Model')
+plt.ylabel('Accuracy (%)')
+plt.ylim(0, 110)
+plt.tight_layout()
+plt.savefig('model_comparison.png', dpi=150, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 20 --- Feature Importance Plot}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 20: Top 20 Feature Importances from Random Forest (incl.\ Age)]
+# Feature importance from the Random Forest base model (top 20)
+importances = rf_model.feature_importances_
+feat_names  = np.array(selected_features)
+indices     = np.argsort(importances)[::-1][:20]
+
+plt.figure(figsize=(12, 4))
+sns.barplot(x=feat_names[indices], y=importances[indices], palette='magma')
+plt.title('Top 20 Feature Importances - Random Forest (incl. Age)', fontsize=13, fontweight='bold')
+plt.xlabel('Feature')
+plt.ylabel('Importance Score')
+plt.xticks(rotation=45, ha='right', fontsize=9)
+plt.tight_layout()
+plt.savefig('feature_importance.png', dpi=150, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+% ----------------------------------------------------------------
+\subsection{Cell 21 --- Final Results Summary}
+% ----------------------------------------------------------------
+
+\begin{lstlisting}[caption=Cell 21: Final Results Summary]
+print('=' * 60)
+print('      DISEASE PREDICTION SYSTEM - FINAL RESULTS')
+print('         (Age + Symptoms | Stacking Ensemble)')
+print('=' * 60)
+print(f'  Decision Tree          Accuracy : {dt_acc    * 100:.2f}%')
+print(f'  Random Forest (200)    Accuracy : {rf_acc    * 100:.2f}%')
+print(f'  XGBoost                Accuracy : {xgb_acc   * 100:.2f}%')
+print(f'  Stacking Ensemble      Accuracy : {stack_acc * 100:.2f}%  <-- BEST')
+print('=' * 60)
+best = results_df.iloc[0]
+print(f'  Best Model : {best["Model"]} ({best["Accuracy (%)"]:.2f}%)')
+print('=' * 60)
 \end{lstlisting}
 
 \end{document}

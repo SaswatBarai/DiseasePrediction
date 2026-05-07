@@ -2,37 +2,58 @@
 \contentsline {section}{\numberline {2}Introduction}{5}{section.2}%
 \contentsline {section}{\numberline {3}Problem Statement}{6}{section.3}%
 \contentsline {section}{\numberline {4}Objectives}{6}{section.4}%
-\contentsline {section}{\numberline {5}Literature Review}{6}{section.5}%
+\contentsline {section}{\numberline {5}Literature Review}{7}{section.5}%
 \contentsline {section}{\numberline {6}Dataset Description}{7}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Source}{7}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Dataset Characteristics}{8}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}Feature Representation}{8}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Methodology}{8}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Data Collection}{8}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Data Preprocessing}{8}{subsection.7.2}%
+\contentsline {section}{\numberline {7}Methodology}{9}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Data Collection}{9}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Data Preprocessing}{9}{subsection.7.2}%
 \contentsline {subsection}{\numberline {7.3}Exploratory Data Analysis}{9}{subsection.7.3}%
 \contentsline {subsection}{\numberline {7.4}Model Development}{10}{subsection.7.4}%
 \contentsline {subsubsection}{\numberline {7.4.1}Decision Tree Classifier}{10}{subsubsection.7.4.1}%
 \contentsline {subsubsection}{\numberline {7.4.2}Random Forest Classifier}{11}{subsubsection.7.4.2}%
 \contentsline {subsubsection}{\numberline {7.4.3}XGBoost Classifier}{11}{subsubsection.7.4.3}%
-\contentsline {subsection}{\numberline {7.5}Model Evaluation}{11}{subsection.7.5}%
+\contentsline {subsubsection}{\numberline {7.4.4}Stacking Ensemble Classifier}{11}{subsubsection.7.4.4}%
+\contentsline {subsection}{\numberline {7.5}Model Evaluation}{12}{subsection.7.5}%
 \contentsline {section}{\numberline {8}System Architecture}{12}{section.8}%
-\contentsline {section}{\numberline {9}Implementation}{13}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Tools and Technologies}{13}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Implementation Steps}{13}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Key Code Snippet}{13}{subsection.9.3}%
-\contentsline {section}{\numberline {10}Results}{14}{section.10}%
-\contentsline {subsection}{\numberline {10.1}Model Accuracy Comparison}{14}{subsection.10.1}%
-\contentsline {subsection}{\numberline {10.2}Confusion Matrices}{14}{subsection.10.2}%
-\contentsline {subsection}{\numberline {10.3}Feature Importance}{17}{subsection.10.3}%
-\contentsline {section}{\numberline {11}Discussion}{18}{section.11}%
-\contentsline {subsection}{\numberline {11.1}What the Numbers Actually Mean}{18}{subsection.11.1}%
-\contentsline {subsection}{\numberline {11.2}What Works Well and What Does Not}{18}{subsection.11.2}%
-\contentsline {section}{\numberline {12}Applications}{18}{section.12}%
-\contentsline {section}{\numberline {13}Future Scope}{19}{section.13}%
-\contentsline {section}{\numberline {14}Conclusion}{19}{section.14}%
-\contentsline {section}{\numberline {15}Roles and Contributions}{20}{section.15}%
-\contentsline {section}{\numberline {16}References}{20}{section.16}%
-\contentsline {section}{\numberline {17}Appendix}{21}{section.17}%
-\contentsline {subsection}{\numberline {17.1}Sample Dataset Records}{21}{subsection.17.1}%
-\contentsline {subsection}{\numberline {17.2}Full Preprocessing Code}{21}{subsection.17.2}%
+\contentsline {section}{\numberline {9}Implementation}{14}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Tools and Technologies}{14}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Implementation Steps}{14}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Key Code Snippet}{15}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Results}{16}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Model Accuracy Comparison}{16}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Confusion Matrices}{16}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Feature Importance}{20}{subsection.10.3}%
+\contentsline {section}{\numberline {11}Discussion}{21}{section.11}%
+\contentsline {subsection}{\numberline {11.1}What the Numbers Actually Mean}{21}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}What Works Well and What Does Not}{21}{subsection.11.2}%
+\contentsline {section}{\numberline {12}Applications}{21}{section.12}%
+\contentsline {section}{\numberline {13}Future Scope}{22}{section.13}%
+\contentsline {section}{\numberline {14}Conclusion}{23}{section.14}%
+\contentsline {section}{\numberline {15}Roles and Contributions}{23}{section.15}%
+\contentsline {section}{\numberline {16}References}{24}{section.16}%
+\contentsline {section}{\numberline {17}Appendix --- Complete Source Code}{24}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Sample Dataset Records}{24}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}Cell 1 --- Imports}{24}{subsection.17.2}%
+\contentsline {subsection}{\numberline {17.3}Cell 2 --- Data Loading and Feature Matrix Construction}{25}{subsection.17.3}%
+\contentsline {subsection}{\numberline {17.4}Cell 3 --- Missing Value Check}{26}{subsection.17.4}%
+\contentsline {subsection}{\numberline {17.5}Cell 4 --- Symptom Dropout and Age Feature Generation}{26}{subsection.17.5}%
+\contentsline {subsection}{\numberline {17.6}Cell 5 --- Label Encoding}{27}{subsection.17.6}%
+\contentsline {subsection}{\numberline {17.7}Cell 6 --- Train-Test Split}{28}{subsection.17.7}%
+\contentsline {subsection}{\numberline {17.8}Cell 7 --- Disease Class Distribution (EDA)}{28}{subsection.17.8}%
+\contentsline {subsection}{\numberline {17.9}Cell 8 --- Symptom Frequency and Age Distribution (EDA)}{28}{subsection.17.9}%
+\contentsline {subsection}{\numberline {17.10}Cell 9 --- Correlation Heatmap (EDA)}{29}{subsection.17.10}%
+\contentsline {subsection}{\numberline {17.11}Cell 10 --- Feature Engineering (Variance Filtering)}{30}{subsection.17.11}%
+\contentsline {subsection}{\numberline {17.12}Cell 11 --- Decision Tree Training and Evaluation}{30}{subsection.17.12}%
+\contentsline {subsection}{\numberline {17.13}Cell 12 --- Random Forest Training and Evaluation}{30}{subsection.17.13}%
+\contentsline {subsection}{\numberline {17.14}Cell 13 --- XGBoost and Stacking Ensemble Training}{30}{subsection.17.14}%
+\contentsline {subsection}{\numberline {17.15}Cell 14 --- Confusion Matrix Helper Function}{32}{subsection.17.15}%
+\contentsline {subsection}{\numberline {17.16}Cell 15 --- Decision Tree Confusion Matrix}{32}{subsection.17.16}%
+\contentsline {subsection}{\numberline {17.17}Cell 16 --- Random Forest Confusion Matrix}{32}{subsection.17.17}%
+\contentsline {subsection}{\numberline {17.18}Cell 17 --- XGBoost and Stacking Ensemble Confusion Matrices}{32}{subsection.17.18}%
+\contentsline {subsection}{\numberline {17.19}Cell 18 --- Model Accuracy Comparison Table}{33}{subsection.17.19}%
+\contentsline {subsection}{\numberline {17.20}Cell 19 --- Model Accuracy Bar Chart}{33}{subsection.17.20}%
+\contentsline {subsection}{\numberline {17.21}Cell 20 --- Feature Importance Plot}{33}{subsection.17.21}%
+\contentsline {subsection}{\numberline {17.22}Cell 21 --- Final Results Summary}{34}{subsection.17.22}%
