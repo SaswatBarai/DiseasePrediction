@@ -2,103 +2,209 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{itachi2020}
+\citation{wolpert1992}
+\citation{kononenko2001,obermeyer2016}
+\citation{who2023}
+\citation{quinlan1986}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Abstract}{5}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Introduction}{5}{section.2}\protected@file@percent }
+\citation{breiman2001}
+\citation{chen2016xgboost}
+\citation{wolpert1992}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Problem Statement}{6}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Objectives}{6}{section.4}\protected@file@percent }
+\citation{kononenko2001}
+\citation{quinlan1986}
+\citation{breiman2001}
+\citation{rajpurkar2017}
+\citation{liaw2002}
+\citation{friedman2001}
+\citation{chen2016xgboost}
+\citation{wolpert1992}
+\citation{ting1999stacking}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Literature Review}{7}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Dataset Description}{7}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Source}{7}{subsection.6.1}\protected@file@percent }
+\citation{itachi2020}
+\citation{ammistic2023}
+\citation{itachi2020}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Dataset Description}{8}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Source}{8}{subsection.6.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Dataset Characteristics}{8}{subsection.6.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Dataset Summary}}{8}{table.caption.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Summary of the Disease Symptom Prediction Dataset~\cite  {itachi2020}. The dataset is sourced from two CSV files: \texttt  {disease\_raw.csv} (patient symptom records) and \texttt  {symptom\_severity.csv} (clinical severity weights 1--7 per symptom). After severity-weighted vectorisation, 50\% symptom dropout, age-feature augmentation, and zero-variance filtering, the final model-ready matrix contains \textbf  {135 features} across \textbf  {4,925 records} spanning \textbf  {41 disease classes}. The 80/20 stratified split (Section~\ref {subsec:preprocess}) ensures all 41 classes are proportionally represented in both training and evaluation subsets.}}{8}{table.caption.2}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:dataset}{{1}{8}{Summary of the Disease Symptom Prediction Dataset~\cite {itachi2020}. The dataset is sourced from two CSV files: \texttt {disease\_raw.csv} (patient symptom records) and \texttt {symptom\_severity.csv} (clinical severity weights 1--7 per symptom). After severity-weighted vectorisation, 50\% symptom dropout, age-feature augmentation, and zero-variance filtering, the final model-ready matrix contains \textbf {135 features} across \textbf {4,925 records} spanning \textbf {41 disease classes}. The 80/20 stratified split (Section~\ref {subsec:preprocess}) ensures all 41 classes are proportionally represented in both training and evaluation subsets}{table.caption.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Feature Representation}{8}{subsection.6.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {7}Methodology}{9}{section.7}\protected@file@percent }
+\newlabel{sec:methodology}{{7}{9}{Methodology}{section.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Data Collection}{9}{subsection.7.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Data Preprocessing}{9}{subsection.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Exploratory Data Analysis}{9}{subsection.7.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Correlation Heatmap of Top 20 Symptoms}}{10}{figure.caption.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Disease Class Distribution}}{10}{figure.caption.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Model Development}{10}{subsection.7.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.1}Decision Tree Classifier}{10}{subsubsection.7.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.2}Random Forest Classifier}{11}{subsubsection.7.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.3}XGBoost Classifier}{11}{subsubsection.7.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.4}Stacking Ensemble Classifier}{11}{subsubsection.7.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Model Evaluation}{12}{subsection.7.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}System Architecture}{12}{section.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces End-to-End System Pipeline Flowchart --- Standard Symbols (\textbf  {Oval}\,=\,Terminal,\ \textbf  {Parallelogram}\,=\,I/O,\ \textbf  {Rectangle}\,=\,Process,\ \textbf  {Diamond}\,=\,Decision)}}{13}{figure.caption.5}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:pipeline}{{3}{13}{End-to-End System Pipeline Flowchart --- Standard Symbols (\textbf {Oval}\,=\,Terminal,\ \textbf {Parallelogram}\,=\,I/O,\ \textbf {Rectangle}\,=\,Process,\ \textbf {Diamond}\,=\,Decision)}{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Implementation}{14}{section.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Tools and Technologies}{14}{subsection.9.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Technologies Used}}{14}{table.caption.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Implementation Steps}{14}{subsection.9.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Key Code Snippet}{15}{subsection.9.3}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces Severity-Weighted Feature Construction}}{15}{lstlisting.1}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces Age Feature Generation}}{15}{lstlisting.2}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}{\ignorespaces Random Forest and Stacking Ensemble Training}}{15}{lstlisting.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Results}{16}{section.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Model Accuracy Comparison}{16}{subsection.10.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Model Performance on Test Set (985 samples, Age + Symptom Features)}}{16}{table.caption.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Accuracy Comparison of Classification Models}}{16}{figure.caption.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Confusion Matrices}{16}{subsection.10.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Confusion Matrix -- Decision Tree (Normalised)}}{17}{figure.caption.9}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Confusion Matrix -- Random Forest (Normalised)}}{18}{figure.caption.10}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Confusion Matrix -- XGBoost (Normalised)}}{19}{figure.caption.11}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Confusion Matrix -- Stacking Ensemble (Normalised)}}{20}{figure.caption.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Feature Importance}{20}{subsection.10.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Top 20 Feature Importances -- Random Forest}}{20}{figure.caption.13}\protected@file@percent }
+\newlabel{subsec:preprocess}{{7.2}{9}{Data Preprocessing}{subsection.7.2}{}}
+\citation{breiman2001}
+\citation{waskom2021seaborn}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Exploratory Data Analysis}{10}{subsection.7.3}\protected@file@percent }
+\citation{itachi2020}
+\citation{chawla2002smote}
+\citation{quinlan1986}
+\citation{breiman1984cart}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Pearson correlation heatmap of the top 20 most frequently occurring symptoms (by total severity weight) across all 4,925 patient records. Cell values represent the Pearson correlation coefficient between each symptom pair; red shading indicates positive co-occurrence and blue indicates inverse co-occurrence. Notable clusters include \textit  {yellowing\_of\_eyes}, \textit  {dark\_urine}, and \textit  {loss\_of\_appetite} (upper-left block, $r \approx 0.6$--$0.8$), which correspond to hepatitis-related conditions, and the \textit  {sweating}/\textit  {chills}/\textit  {high\_fever} cluster associated with acute febrile illnesses. These co-occurrence patterns motivate the use of tree-based models~\cite  {breiman2001}, which naturally capture feature interactions without explicit encoding. Generated using Seaborn~\cite  {waskom2021seaborn} (see Cell~9 in the Appendix).}}{11}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:heatmap}{{1}{11}{Pearson correlation heatmap of the top 20 most frequently occurring symptoms (by total severity weight) across all 4,925 patient records. Cell values represent the Pearson correlation coefficient between each symptom pair; red shading indicates positive co-occurrence and blue indicates inverse co-occurrence. Notable clusters include \textit {yellowing\_of\_eyes}, \textit {dark\_urine}, and \textit {loss\_of\_appetite} (upper-left block, $r \approx 0.6$--$0.8$), which correspond to hepatitis-related conditions, and the \textit {sweating}/\textit {chills}/\textit {high\_fever} cluster associated with acute febrile illnesses. These co-occurrence patterns motivate the use of tree-based models~\cite {breiman2001}, which naturally capture feature interactions without explicit encoding. Generated using Seaborn~\cite {waskom2021seaborn} (see Cell~9 in the Appendix)}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Model Development}{11}{subsection.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.1}Decision Tree Classifier}{11}{subsubsection.7.4.1}\protected@file@percent }
+\citation{breiman2001}
+\citation{chen2016xgboost}
+\citation{friedman2001}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Distribution of records across all 41 disease classes in the dataset~\cite  {itachi2020}. Each bar represents one disease; the dataset is approximately balanced with roughly 120 records per class (range: 114--132). This near-uniform distribution means accuracy is a meaningful evaluation metric --- no classifier can inflate its score simply by predicting the most frequent class. The balanced distribution also eliminates the need for class-weighting or oversampling techniques such as SMOTE~\cite  {chawla2002smote} in our pipeline. As discussed in Section~\ref {sec:results}, the stratified 80/20 split preserves these proportions in both the training and test subsets. Generated using Seaborn (see Cell~7 in the Appendix).}}{12}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:classdist}{{2}{12}{Distribution of records across all 41 disease classes in the dataset~\cite {itachi2020}. Each bar represents one disease; the dataset is approximately balanced with roughly 120 records per class (range: 114--132). This near-uniform distribution means accuracy is a meaningful evaluation metric --- no classifier can inflate its score simply by predicting the most frequent class. The balanced distribution also eliminates the need for class-weighting or oversampling techniques such as SMOTE~\cite {chawla2002smote} in our pipeline. As discussed in Section~\ref {sec:results}, the stratified 80/20 split preserves these proportions in both the training and test subsets. Generated using Seaborn (see Cell~7 in the Appendix)}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.2}Random Forest Classifier}{12}{subsubsection.7.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.3}XGBoost Classifier}{12}{subsubsection.7.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.4.4}Stacking Ensemble Classifier}{13}{subsubsection.7.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Model Evaluation}{13}{subsection.7.5}\protected@file@percent }
+\citation{pedregosa2011}
+\@writefile{toc}{\contentsline {section}{\numberline {8}System Architecture}{15}{section.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces End-to-End System Pipeline Flowchart --- Standard Symbols (\textbf  {Oval}\,=\,Terminal,\ \textbf  {Parallelogram}\,=\,I/O,\ \textbf  {Rectangle}\,=\,Process,\ \textbf  {Diamond}\,=\,Decision)}}{15}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:pipeline}{{3}{15}{End-to-End System Pipeline Flowchart --- Standard Symbols (\textbf {Oval}\,=\,Terminal,\ \textbf {Parallelogram}\,=\,I/O,\ \textbf {Rectangle}\,=\,Process,\ \textbf {Diamond}\,=\,Decision)}{figure.caption.5}{}}
+\citation{pedregosa2011}
+\citation{chen2016xgboost}
+\citation{hunter2007matplotlib}
+\citation{waskom2021seaborn}
+\citation{mckinney2010pandas}
+\citation{pedregosa2011}
+\citation{chen2016xgboost}
+\citation{hunter2007matplotlib}
+\citation{waskom2021seaborn}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Implementation}{16}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Tools and Technologies}{16}{subsection.9.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Software tools and libraries used in the Disease Prediction System pipeline. All libraries are open-source and freely available. Scikit-learn~\cite  {pedregosa2011} provides the Decision Tree, Random Forest, StackingClassifier, preprocessing utilities, and evaluation metrics. XGBoost~\cite  {chen2016xgboost} is used as a standalone gradient boosting base learner. Matplotlib~\cite  {hunter2007matplotlib} and Seaborn~\cite  {waskom2021seaborn} produce all visualisations in Section~\ref {sec:results}. The complete reproducible implementation is available in the Appendix.}}{16}{table.caption.7}\protected@file@percent }
+\newlabel{tab:tech}{{2}{16}{Software tools and libraries used in the Disease Prediction System pipeline. All libraries are open-source and freely available. Scikit-learn~\cite {pedregosa2011} provides the Decision Tree, Random Forest, StackingClassifier, preprocessing utilities, and evaluation metrics. XGBoost~\cite {chen2016xgboost} is used as a standalone gradient boosting base learner. Matplotlib~\cite {hunter2007matplotlib} and Seaborn~\cite {waskom2021seaborn} produce all visualisations in Section~\ref {sec:results}. The complete reproducible implementation is available in the Appendix}{table.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Implementation Steps}{16}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Key Code Snippet}{17}{subsection.9.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces Severity-Weighted Feature Construction}}{17}{lstlisting.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces Age Feature Generation}}{17}{lstlisting.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}{\ignorespaces Random Forest and Stacking Ensemble Training}}{17}{lstlisting.3}\protected@file@percent }
+\citation{wolpert1992}
+\citation{quinlan1986}
+\citation{pedregosa2011}
+\citation{quinlan1986}
+\citation{chen2016xgboost}
+\citation{breiman2001}
+\citation{wolpert1992}
+\citation{breiman2001}
+\citation{chen2016xgboost}
+\citation{quinlan1986}
+\citation{hunter2007matplotlib}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Results}{18}{section.10}\protected@file@percent }
+\newlabel{sec:results}{{10}{18}{Results}{section.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Model Accuracy Comparison}{18}{subsection.10.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Classification performance of all four models on the held-out test set (985 samples, stratified 80/20 split). All metrics are macro-averaged across 41 disease classes, treating each class equally regardless of sample count. Accuracy = fraction of correctly classified samples. Precision = mean across classes of true positives / (true positives + false positives). Recall = mean across classes of true positives / (true positives + false negatives). F1 = harmonic mean of precision and recall. The Stacking Ensemble~\cite  {wolpert1992} achieves the highest accuracy (93.50\%), outperforming the Decision Tree~\cite  {quinlan1986} baseline by \textbf  {+7.92 percentage points}. Confusion matrices for each model are presented in Figures~\ref {fig:cmdt}--\ref {fig:cmstack}. All experiments were run with \texttt  {random\_state=42} for full reproducibility~\cite  {pedregosa2011}.}}{18}{table.caption.8}\protected@file@percent }
+\newlabel{tab:results}{{3}{18}{Classification performance of all four models on the held-out test set (985 samples, stratified 80/20 split). All metrics are macro-averaged across 41 disease classes, treating each class equally regardless of sample count. Accuracy = fraction of correctly classified samples. Precision = mean across classes of true positives / (true positives + false positives). Recall = mean across classes of true positives / (true positives + false negatives). F1 = harmonic mean of precision and recall. The Stacking Ensemble~\cite {wolpert1992} achieves the highest accuracy (93.50\%), outperforming the Decision Tree~\cite {quinlan1986} baseline by \textbf {+7.92 percentage points}. Confusion matrices for each model are presented in Figures~\ref {fig:cmdt}--\ref {fig:cmstack}. All experiments were run with \texttt {random\_state=42} for full reproducibility~\cite {pedregosa2011}}{table.caption.8}{}}
+\citation{quinlan1986}
+\citation{waskom2021seaborn}
+\citation{breiman2001}
+\citation{waskom2021seaborn}
+\citation{chen2016xgboost}
+\citation{friedman2001}
+\citation{waskom2021seaborn}
+\citation{wolpert1992}
+\citation{waskom2021seaborn}
+\citation{breiman1984cart}
+\citation{breiman2001}
+\citation{breiman1984cart}
+\citation{waskom2021seaborn}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Bar chart comparing the test-set accuracy of the four classifiers described in Section~\ref {sec:methodology} (see also Table~\ref {tab:results}). Each bar is annotated with its exact accuracy value. The Stacking Ensemble (93.50\%) leads, followed closely by Random Forest~\cite  {breiman2001} (93.30\%), XGBoost~\cite  {chen2016xgboost} (91.47\%), and the Decision Tree~\cite  {quinlan1986} baseline (85.58\%). The narrow 0.20-point gap between the Stacking Ensemble and Random Forest reflects the marginal but consistent gain from the Logistic Regression meta-learner's ability to recover cases where all three base models are simultaneously incorrect. Generated using Matplotlib~\cite  {hunter2007matplotlib} (see Cell~19 in the Appendix).}}{19}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:modelcomp}{{4}{19}{Bar chart comparing the test-set accuracy of the four classifiers described in Section~\ref {sec:methodology} (see also Table~\ref {tab:results}). Each bar is annotated with its exact accuracy value. The Stacking Ensemble (93.50\%) leads, followed closely by Random Forest~\cite {breiman2001} (93.30\%), XGBoost~\cite {chen2016xgboost} (91.47\%), and the Decision Tree~\cite {quinlan1986} baseline (85.58\%). The narrow 0.20-point gap between the Stacking Ensemble and Random Forest reflects the marginal but consistent gain from the Logistic Regression meta-learner's ability to recover cases where all three base models are simultaneously incorrect. Generated using Matplotlib~\cite {hunter2007matplotlib} (see Cell~19 in the Appendix)}{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Confusion Matrices}{19}{subsection.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Feature Importance}{19}{subsection.10.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Normalised confusion matrix --- Decision Tree~\cite  {quinlan1986}, accuracy \textbf  {85.58\%} (985 test samples). The noisier diagonal reflects overfitting on the 50\% dropout noise. The hepatitis cluster (B/C/D/E) produces the most off-diagonal mass, as their symptom profiles are clinically indistinguishable without laboratory tests. Seaborn~\cite  {waskom2021seaborn} (Cell~15, Appendix).}}{20}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:cmdt}{{5}{20}{Normalised confusion matrix --- Decision Tree~\cite {quinlan1986}, accuracy \textbf {85.58\%} (985 test samples). The noisier diagonal reflects overfitting on the 50\% dropout noise. The hepatitis cluster (B/C/D/E) produces the most off-diagonal mass, as their symptom profiles are clinically indistinguishable without laboratory tests. Seaborn~\cite {waskom2021seaborn} (Cell~15, Appendix)}{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Top 20 feature importance scores from the Random Forest~\cite  {breiman2001} base learner (200 estimators, \texttt  {random\_state=42}), measured as mean decrease in Gini impurity~\cite  {breiman1984cart} across all splits in all trees. Jaundice-cluster symptoms (\textit  {yellowing of eyes}, \textit  {dark urine}) dominate, followed by febrile-illness markers and --- critically --- the engineered \textbf  {age feature at rank 5 (0.035)}, validating the epidemiological prior encoding. The importance ordering is consistent with established clinical diagnostic hierarchies. Generated using Seaborn~\cite  {waskom2021seaborn} (Cell~20 in the Appendix).}}{20}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:featimport}{{9}{20}{Top 20 feature importance scores from the Random Forest~\cite {breiman2001} base learner (200 estimators, \texttt {random\_state=42}), measured as mean decrease in Gini impurity~\cite {breiman1984cart} across all splits in all trees. Jaundice-cluster symptoms (\textit {yellowing of eyes}, \textit {dark urine}) dominate, followed by febrile-illness markers and --- critically --- the engineered \textbf {age feature at rank 5 (0.035)}, validating the epidemiological prior encoding. The importance ordering is consistent with established clinical diagnostic hierarchies. Generated using Seaborn~\cite {waskom2021seaborn} (Cell~20 in the Appendix)}{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Normalised confusion matrix --- Random Forest~\cite  {breiman2001} (200 trees), accuracy \textbf  {93.30\%}. Most classes reach recall $\geq 0.90$. Residual confusions concentrate in the hepatitis cluster and between Dengue and Malaria. The +7.72 pt gain over the Decision Tree stems from variance reduction via majority voting across 200 independently trained trees. Seaborn~\cite  {waskom2021seaborn} (Cell~16, Appendix).}}{21}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:cmrf}{{6}{21}{Normalised confusion matrix --- Random Forest~\cite {breiman2001} (200 trees), accuracy \textbf {93.30\%}. Most classes reach recall $\geq 0.90$. Residual confusions concentrate in the hepatitis cluster and between Dengue and Malaria. The +7.72 pt gain over the Decision Tree stems from variance reduction via majority voting across 200 independently trained trees. Seaborn~\cite {waskom2021seaborn} (Cell~16, Appendix)}{figure.caption.11}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {11}Discussion}{21}{section.11}\protected@file@percent }
+\newlabel{sec:discussion}{{11}{21}{Discussion}{section.11}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {11.1}What the Numbers Actually Mean}{21}{subsection.11.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}What Works Well and What Does Not}{21}{subsection.11.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {12}Applications}{21}{section.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {13}Future Scope}{22}{section.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {14}Conclusion}{23}{section.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {15}Roles and Contributions}{23}{section.15}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Team Contributions}}{23}{table.caption.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {16}References}{24}{section.16}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {17}Appendix --- Complete Source Code}{24}{section.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.1}Sample Dataset Records}{24}{subsection.17.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Sample Records from Processed Dataset (symptom severity + age)}}{24}{table.caption.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.2}Cell 1 --- Imports}{24}{subsection.17.2}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}{\ignorespaces Cell 1: Library Imports}}{24}{lstlisting.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.3}Cell 2 --- Data Loading and Feature Matrix Construction}{25}{subsection.17.3}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}{\ignorespaces Cell 2: Data Loading and Severity-Weighted Feature Construction}}{25}{lstlisting.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.4}Cell 3 --- Missing Value Check}{26}{subsection.17.4}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}{\ignorespaces Cell 3: Missing Value Check}}{26}{lstlisting.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.5}Cell 4 --- Symptom Dropout and Age Feature Generation}{26}{subsection.17.5}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}{\ignorespaces Cell 4: 50\% Symptom Dropout and Epidemiological Age Feature}}{26}{lstlisting.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.6}Cell 5 --- Label Encoding}{27}{subsection.17.6}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {8}{\ignorespaces Cell 5: Label Encoding}}{27}{lstlisting.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.7}Cell 6 --- Train-Test Split}{28}{subsection.17.7}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {9}{\ignorespaces Cell 6: Stratified 80/20 Train-Test Split}}{28}{lstlisting.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.8}Cell 7 --- Disease Class Distribution (EDA)}{28}{subsection.17.8}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {10}{\ignorespaces Cell 7: Disease Class Distribution Plot}}{28}{lstlisting.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.9}Cell 8 --- Symptom Frequency and Age Distribution (EDA)}{28}{subsection.17.9}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {11}{\ignorespaces Cell 8: Top 20 Symptoms and Age Distribution by Disease}}{28}{lstlisting.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.10}Cell 9 --- Correlation Heatmap (EDA)}{29}{subsection.17.10}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {12}{\ignorespaces Cell 9: Correlation Heatmap of Top 20 Symptoms}}{29}{lstlisting.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.11}Cell 10 --- Feature Engineering (Variance Filtering)}{30}{subsection.17.11}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {13}{\ignorespaces Cell 10: Zero-Variance Feature Removal}}{30}{lstlisting.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.12}Cell 11 --- Decision Tree Training and Evaluation}{30}{subsection.17.12}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {14}{\ignorespaces Cell 11: Decision Tree Classifier}}{30}{lstlisting.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.13}Cell 12 --- Random Forest Training and Evaluation}{30}{subsection.17.13}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {15}{\ignorespaces Cell 12: Random Forest Classifier (200 Trees)}}{30}{lstlisting.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.14}Cell 13 --- XGBoost and Stacking Ensemble Training}{30}{subsection.17.14}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {16}{\ignorespaces Cell 13: XGBoost Classifier and Stacking Ensemble}}{30}{lstlisting.16}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.15}Cell 14 --- Confusion Matrix Helper Function}{32}{subsection.17.15}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {17}{\ignorespaces Cell 14: Normalised Confusion Matrix Helper Function}}{32}{lstlisting.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.16}Cell 15 --- Decision Tree Confusion Matrix}{32}{subsection.17.16}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {18}{\ignorespaces Cell 15: Decision Tree Confusion Matrix}}{32}{lstlisting.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.17}Cell 16 --- Random Forest Confusion Matrix}{32}{subsection.17.17}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {19}{\ignorespaces Cell 16: Random Forest Confusion Matrix}}{32}{lstlisting.19}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.18}Cell 17 --- XGBoost and Stacking Ensemble Confusion Matrices}{32}{subsection.17.18}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {20}{\ignorespaces Cell 17: XGBoost and Stacking Ensemble Confusion Matrices}}{32}{lstlisting.20}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.19}Cell 18 --- Model Accuracy Comparison Table}{33}{subsection.17.19}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {21}{\ignorespaces Cell 18: Model Accuracy Comparison Table}}{33}{lstlisting.21}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.20}Cell 19 --- Model Accuracy Bar Chart}{33}{subsection.17.20}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {22}{\ignorespaces Cell 19: Model Accuracy Comparison Bar Chart}}{33}{lstlisting.22}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.21}Cell 20 --- Feature Importance Plot}{33}{subsection.17.21}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {23}{\ignorespaces Cell 20: Top 20 Feature Importances from Random Forest (incl.\ Age)}}{33}{lstlisting.23}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {17.22}Cell 21 --- Final Results Summary}{34}{subsection.17.22}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {24}{\ignorespaces Cell 21: Final Results Summary}}{34}{lstlisting.24}\protected@file@percent }
-\gdef \@abspage@last{34}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Normalised confusion matrix --- XGBoost~\cite  {chen2016xgboost} (100 rounds, \texttt  {lr=0.1}), accuracy \textbf  {91.47\%}. Sequential residual correction~\cite  {friedman2001} improves over the Decision Tree but underperforms Random Forest by 1.83 pt, as gradient boosting amplifies noise from the 50\% dropout step. Seaborn~\cite  {waskom2021seaborn} (Cell~17, Appendix).}}{22}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:cmxgb}{{7}{22}{Normalised confusion matrix --- XGBoost~\cite {chen2016xgboost} (100 rounds, \texttt {lr=0.1}), accuracy \textbf {91.47\%}. Sequential residual correction~\cite {friedman2001} improves over the Decision Tree but underperforms Random Forest by 1.83 pt, as gradient boosting amplifies noise from the 50\% dropout step. Seaborn~\cite {waskom2021seaborn} (Cell~17, Appendix)}{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.2}What Works Well and What Does Not}{22}{subsection.11.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Normalised confusion matrix --- Stacking Ensemble~\cite  {wolpert1992} (DT + RF + XGB base learners, LR meta-learner, \texttt  {passthrough=True}, 5-fold CV), accuracy \textbf  {93.50\%} --- the sharpest diagonal across all four models. The +0.20 pt gain over Random Forest reflects the meta-learner correcting cases where all three base models simultaneously output high-confidence wrong predictions. Seaborn~\cite  {waskom2021seaborn} (Cell~17, Appendix).}}{23}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:cmstack}{{8}{23}{Normalised confusion matrix --- Stacking Ensemble~\cite {wolpert1992} (DT + RF + XGB base learners, LR meta-learner, \texttt {passthrough=True}, 5-fold CV), accuracy \textbf {93.50\%} --- the sharpest diagonal across all four models. The +0.20 pt gain over Random Forest reflects the meta-learner correcting cases where all three base models simultaneously output high-confidence wrong predictions. Seaborn~\cite {waskom2021seaborn} (Cell~17, Appendix)}{figure.caption.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {12}Applications}{23}{section.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13}Future Scope}{24}{section.13}\protected@file@percent }
+\citation{wolpert1992}
+\citation{quinlan1986}
+\citation{breiman2001}
+\citation{chen2016xgboost}
+\citation{itachi2020,ammistic2023}
+\@writefile{toc}{\contentsline {section}{\numberline {14}Conclusion}{25}{section.14}\protected@file@percent }
+\bibcite{breiman2001}{{1}{}{{}}{{}}}
+\bibcite{breiman1984cart}{{2}{}{{}}{{}}}
+\bibcite{chen2016xgboost}{{3}{}{{}}{{}}}
+\bibcite{chawla2002smote}{{4}{}{{}}{{}}}
+\bibcite{friedman2001}{{5}{}{{}}{{}}}
+\@writefile{toc}{\contentsline {section}{\numberline {15}Roles and Contributions}{26}{section.15}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Individual contributions of each team member to the Disease Prediction System project. All four members jointly attended design review meetings, participated in debugging sessions, and reviewed the final notebook and report before submission. The division below reflects each member's primary ownership area.}}{26}{table.caption.15}\protected@file@percent }
+\newlabel{tab:team}{{4}{26}{Individual contributions of each team member to the Disease Prediction System project. All four members jointly attended design review meetings, participated in debugging sessions, and reviewed the final notebook and report before submission. The division below reflects each member's primary ownership area}{table.caption.15}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {16}References}{26}{section.16}\protected@file@percent }
+\bibcite{hunter2007matplotlib}{{6}{}{{}}{{}}}
+\bibcite{itachi2020}{{7}{}{{}}{{}}}
+\bibcite{ammistic2023}{{8}{}{{}}{{}}}
+\bibcite{kononenko2001}{{9}{}{{}}{{}}}
+\bibcite{liaw2002}{{10}{}{{}}{{}}}
+\bibcite{mckinney2010pandas}{{11}{}{{}}{{}}}
+\bibcite{obermeyer2016}{{12}{}{{}}{{}}}
+\bibcite{pedregosa2011}{{13}{}{{}}{{}}}
+\bibcite{quinlan1986}{{14}{}{{}}{{}}}
+\bibcite{rajpurkar2017}{{15}{}{{}}{{}}}
+\bibcite{ting1999stacking}{{16}{}{{}}{{}}}
+\bibcite{waskom2021seaborn}{{17}{}{{}}{{}}}
+\bibcite{who2023}{{18}{}{{}}{{}}}
+\bibcite{wolpert1992}{{19}{}{{}}{{}}}
+\citation{itachi2020}
+\@writefile{toc}{\contentsline {section}{\numberline {17}Appendix --- Complete Source Code}{28}{section.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.1}Sample Dataset Records}{28}{subsection.17.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Four illustrative records from the processed feature matrix, showing severity-weighted symptom columns (integer scale 0--7 from~\cite  {itachi2020}; 0 = symptom absent or zeroed by dropout), the epidemiologically sampled \textit  {age} column (Section~\ref {subsec:preprocess}), and the target \textit  {prognosis} label. The full matrix contains 135 such feature columns after zero-variance filtering (see Table~\ref {tab:dataset}). Note that Dengue (row 3) shows \textit  {itching} at severity 7 but \textit  {skin\_rash} at 0 --- an example of the 50\% dropout masking a co-occurring symptom, simulating real incomplete clinical reporting.}}{28}{table.caption.17}\protected@file@percent }
+\newlabel{tab:sample}{{5}{28}{Four illustrative records from the processed feature matrix, showing severity-weighted symptom columns (integer scale 0--7 from~\cite {itachi2020}; 0 = symptom absent or zeroed by dropout), the epidemiologically sampled \textit {age} column (Section~\ref {subsec:preprocess}), and the target \textit {prognosis} label. The full matrix contains 135 such feature columns after zero-variance filtering (see Table~\ref {tab:dataset}). Note that Dengue (row 3) shows \textit {itching} at severity 7 but \textit {skin\_rash} at 0 --- an example of the 50\% dropout masking a co-occurring symptom, simulating real incomplete clinical reporting}{table.caption.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.2}Cell 1 --- Imports}{28}{subsection.17.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}{\ignorespaces Cell 1: Library Imports}}{28}{lstlisting.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.3}Cell 2 --- Data Loading and Feature Matrix Construction}{28}{subsection.17.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5}{\ignorespaces Cell 2: Data Loading and Severity-Weighted Feature Construction}}{29}{lstlisting.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.4}Cell 3 --- Missing Value Check}{29}{subsection.17.4}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6}{\ignorespaces Cell 3: Missing Value Check}}{29}{lstlisting.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.5}Cell 4 --- Symptom Dropout and Age Feature Generation}{29}{subsection.17.5}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {7}{\ignorespaces Cell 4: 50\% Symptom Dropout and Epidemiological Age Feature}}{30}{lstlisting.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.6}Cell 5 --- Label Encoding}{31}{subsection.17.6}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {8}{\ignorespaces Cell 5: Label Encoding}}{31}{lstlisting.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.7}Cell 6 --- Train-Test Split}{31}{subsection.17.7}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {9}{\ignorespaces Cell 6: Stratified 80/20 Train-Test Split}}{31}{lstlisting.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.8}Cell 7 --- Disease Class Distribution (EDA)}{31}{subsection.17.8}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {10}{\ignorespaces Cell 7: Disease Class Distribution Plot}}{32}{lstlisting.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.9}Cell 8 --- Symptom Frequency and Age Distribution (EDA)}{32}{subsection.17.9}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {11}{\ignorespaces Cell 8: Top 20 Symptoms and Age Distribution by Disease}}{32}{lstlisting.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.10}Cell 9 --- Correlation Heatmap (EDA)}{33}{subsection.17.10}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {12}{\ignorespaces Cell 9: Correlation Heatmap of Top 20 Symptoms}}{33}{lstlisting.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.11}Cell 10 --- Feature Engineering (Variance Filtering)}{33}{subsection.17.11}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {13}{\ignorespaces Cell 10: Zero-Variance Feature Removal}}{33}{lstlisting.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.12}Cell 11 --- Decision Tree Training and Evaluation}{33}{subsection.17.12}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {14}{\ignorespaces Cell 11: Decision Tree Classifier}}{33}{lstlisting.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.13}Cell 12 --- Random Forest Training and Evaluation}{34}{subsection.17.13}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {15}{\ignorespaces Cell 12: Random Forest Classifier (200 Trees)}}{34}{lstlisting.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.14}Cell 13 --- XGBoost and Stacking Ensemble Training}{34}{subsection.17.14}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {16}{\ignorespaces Cell 13: XGBoost Classifier and Stacking Ensemble}}{34}{lstlisting.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.15}Cell 14 --- Confusion Matrix Helper Function}{35}{subsection.17.15}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {17}{\ignorespaces Cell 14: Normalised Confusion Matrix Helper Function}}{35}{lstlisting.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.16}Cell 15 --- Decision Tree Confusion Matrix}{36}{subsection.17.16}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {18}{\ignorespaces Cell 15: Decision Tree Confusion Matrix}}{36}{lstlisting.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.17}Cell 16 --- Random Forest Confusion Matrix}{36}{subsection.17.17}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {19}{\ignorespaces Cell 16: Random Forest Confusion Matrix}}{36}{lstlisting.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.18}Cell 17 --- XGBoost and Stacking Ensemble Confusion Matrices}{36}{subsection.17.18}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {20}{\ignorespaces Cell 17: XGBoost and Stacking Ensemble Confusion Matrices}}{36}{lstlisting.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.19}Cell 18 --- Model Accuracy Comparison Table}{36}{subsection.17.19}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {21}{\ignorespaces Cell 18: Model Accuracy Comparison Table}}{36}{lstlisting.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.20}Cell 19 --- Model Accuracy Bar Chart}{37}{subsection.17.20}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {22}{\ignorespaces Cell 19: Model Accuracy Comparison Bar Chart}}{37}{lstlisting.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.21}Cell 20 --- Feature Importance Plot}{37}{subsection.17.21}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {23}{\ignorespaces Cell 20: Top 20 Feature Importances from Random Forest (incl.\ Age)}}{37}{lstlisting.23}\protected@file@percent }
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.22}Cell 21 --- Final Results Summary}{38}{subsection.17.22}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {24}{\ignorespaces Cell 21: Final Results Summary}}{38}{lstlisting.24}\protected@file@percent }
+\gdef \@abspage@last{38}

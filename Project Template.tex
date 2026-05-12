@@ -8,13 +8,17 @@
 \usepackage{amsmath}
 \PassOptionsToPackage{hyphens}{url}
 \usepackage{hyperref}
+\usepackage[numbers,sort&compress]{natbib}
 \usepackage{listings}
 \usepackage{caption}
+\usepackage{subcaption}
 \usepackage{float}
 \usepackage{enumitem}
 \usepackage{parskip}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\usepackage{microtype}
+\usepackage{ragged2e}
 
 \hypersetup{
     colorlinks=true,
@@ -37,10 +41,23 @@
     numbers=left,
     numberstyle=\tiny\color{gray},
     numbersep=6pt,
-    xleftmargin=15pt
+    xleftmargin=15pt,
+    aboveskip=6pt,
+    belowskip=4pt
 }
 
 \begin{document}
+
+% ── Global spacing controls ──────────────────────────────────────
+\setlength{\parskip}{4pt plus 1pt minus 1pt}
+\setlength{\floatsep}{6pt plus 1pt minus 1pt}
+\setlength{\textfloatsep}{8pt plus 2pt minus 3pt}
+\setlength{\intextsep}{6pt plus 1pt minus 1pt}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{2pt}
+\captionsetup{font=small, labelfont=bf, skip=4pt, justification=justified, singlelinecheck=false}
+\setlist{itemsep=1pt, topsep=4pt, parsep=0pt, partopsep=0pt}
+\setlist[enumerate]{itemsep=1pt, topsep=4pt, parsep=0pt, partopsep=0pt}
 
 % ---------------- COVER PAGE ----------------
 \begin{center}
@@ -72,17 +89,17 @@ Admission Batch: \textbf{2023} \hspace{1cm} Session: \textbf{2025--26}\\[1cm]
 \textbf{\large Submitted by:}\\[0.5cm]
 
 \begin{tabular}{ll}
-1) NAME 1 & 2341\_\_\_\_\_ \\
-2) NAME 2 & 2341\_\_\_\_\_ \\
-3) NAME 3 & 2341\_\_\_\_\_ \\
-4) NAME 4 & 2341\_\_\_\_\_ \\
+1) SASWAT BARAI & 2341002028 \\
+2) DEBANANDA BEHERA & 2341002103 \\
+3) AYAN BHATTACHARJEE & 2341002172 \\
+4) AMIT KUMAR BHUKTA & 2341002180 \\
 \end{tabular}
 
 \vspace{1cm}
 
-Section: \textbf{2341\_\_\_} \hspace{0.8cm}
-Semester: \textbf{\_\_\_\_\_\_} \hspace{0.8cm}
-Branch: \textbf{\_\_\_\_\_\_}
+Section: \textbf{23412G2} \hspace{0.8cm}
+Semester: \textbf{6TH} \hspace{0.8cm}
+Branch: \textbf{CSE}
 
 \vspace{1.2cm}
 
@@ -102,7 +119,6 @@ Jagamohan Nagar, Jagamara, Bhubaneswar, Odisha -- 751030
 \newpage
 
 % ---------------- DECLARATION ----------------
-\newpage
 \begin{center}
 
 {\Large \textbf{DECLARATION}}\\[1cm]
@@ -132,13 +148,13 @@ This work has been carried out under the guidance of the project supervisor and 
 \vspace{0.5cm}
 
 \begin{tabular}{p{6cm} p{6cm}}
-NAME 1 (Regd. No: 2341\_\_\_\_\_) & Signature: \rule{5cm}{0.4pt} \\
+SASWAT BARAI (Regd. No: 2341002028) & Signature: \rule{5cm}{0.4pt} \\
 \\
-NAME 2 (Regd. No: 2341\_\_\_\_\_) & Signature: \rule{5cm}{0.4pt} \\
+DEBANANDA BEHERA (Regd. No: 2341002103) & Signature: \rule{5cm}{0.4pt} \\
 \\
-NAME 3 (Regd. No: 2341\_\_\_\_\_) & Signature: \rule{5cm}{0.4pt} \\
+AYAN BHATTACHARJEE (Regd. No: 2341002172) & Signature: \rule{5cm}{0.4pt} \\
 \\
-NAME 4 (Regd. No: 2341\_\_\_\_\_) & Signature: \rule{5cm}{0.4pt} \\
+AMIT KUMAR BHUKTA (Regd. No: 2341002180) & Signature: \rule{5cm}{0.4pt} \\
 \end{tabular}
 
 \vspace{1.5cm}
@@ -146,7 +162,7 @@ NAME 4 (Regd. No: 2341\_\_\_\_\_) & Signature: \rule{5cm}{0.4pt} \\
 \noindent
 \textbf{Project Supervisor:} \\
 \vspace{0.5cm}
-Name: \rule{8cm}{0.4pt} \\
+Name: Kumari Manju \\
 \vspace{0.3cm}
 Signature: \rule{6cm}{0.4pt}
 
@@ -173,7 +189,7 @@ Bhubaneswar, Odisha\\[0.5cm]
 
 Getting a proper diagnosis at the right time can genuinely be the difference between a smooth recovery and something far more serious. The frustrating reality, especially in smaller towns and rural pockets of India, is that most people simply do not have dependable access to a doctor each time they fall ill. This project was put together with that problem squarely in mind. We developed a \textbf{Disease Prediction System} that accepts a patient's age and self-reported symptoms --- represented as severity scores --- and identifies the most probable disease from a pool of 41 conditions.
 
-Our dataset, sourced from Kaggle (itachi9604, see References), holds 4,925 patient records. Rather than encoding each symptom as a plain yes-or-no flag, we assigned severity weights ranging from 1 to 7 --- giving the model a far richer, more realistic view of how unwell the patient actually is. Two design choices distinguish our pipeline from similar work: (1) an \textbf{age-aware feature} drawn from epidemiological age distributions for each disease, embedding genuine clinical knowledge directly into the input; and (2) a \textbf{Stacking Ensemble} that uses a Decision Tree, Random Forest (200 estimators), and XGBoost as base learners, whose out-of-fold probability predictions are fed --- alongside the original features (\texttt{passthrough=True}) --- into a Logistic Regression meta-learner for the final decision.
+Our dataset, sourced from Kaggle~\cite{itachi2020}, holds 4,925 patient records. Rather than encoding each symptom as a plain yes-or-no flag, we assigned severity weights ranging from 1 to 7 --- giving the model a far richer, more realistic view of how unwell the patient actually is. Two design choices distinguish our pipeline from similar work: (1) an \textbf{age-aware feature} drawn from epidemiological age distributions for each disease, embedding genuine clinical knowledge directly into the input; and (2) a \textbf{Stacking Ensemble}~\cite{wolpert1992} that uses a Decision Tree, Random Forest (200 estimators), and XGBoost as base learners, whose out-of-fold probability predictions are fed --- alongside the original features (\texttt{passthrough=True}) --- into a Logistic Regression meta-learner for the final decision.
 
 Four classifiers were trained and evaluated on 985 held-out test samples. The Stacking Ensemble topped the board at \textbf{93.50\%} accuracy (macro precision 0.94, macro recall 0.93), followed by Random Forest at \textbf{93.30\%}, XGBoost at \textbf{91.47\%}, and the Decision Tree at \textbf{85.58\%}.
 
@@ -185,15 +201,15 @@ Four classifiers were trained and evaluated on 985 held-out test samples. The St
 
 We have all done it at some point --- typed our symptoms into a search engine and come back with a list running from a mild stomach bug to something outright alarming. The core trouble is not that information is scarce; it is that raw symptom data is genuinely difficult to make sense of without either clinical training or a well-calibrated model doing the heavy lifting. Machine learning sits neatly in that middle ground, and that is what drew us toward this problem.
 
-Over the past ten years or so, researchers across the globe have been applying ML to clinical decision support, and the motivation is hard to argue with. Hospitals and clinics generate staggering volumes of patient data every single day, and patterns buried within that data can surface diagnoses more quickly and consistently than any individual physician operating under time pressure. The snag is that most of this work never leaves the pages of academic journals. We wanted to honestly test what a clean, end-to-end classification pipeline could do on a publicly available symptom-disease dataset --- no deep learning stacks, no cloud APIs, just robust classical machine learning applied thoughtfully.
+Over the past decade, researchers across the globe have been applying ML to clinical decision support~\cite{kononenko2001,obermeyer2016}, and the motivation is hard to argue with. The World Health Organization estimates that over half of the world's population lacks access to essential health services~\cite{who2023}, and hospitals generate staggering volumes of patient data every single day --- patterns buried within that data can surface diagnoses more quickly and consistently than any individual physician operating under time pressure. The snag is that most of this work never leaves the pages of academic journals. We wanted to honestly test what a clean, end-to-end classification pipeline could do on a publicly available symptom-disease dataset --- no deep learning stacks, no cloud APIs, just robust classical machine learning applied thoughtfully.
 
 We selected four algorithms that step up in complexity in a natural way, finishing with a meta-learning ensemble:
 
 \begin{itemize}
-    \item \textbf{Decision Tree} --- easy to follow, straightforward to explain to a non-technical person, and a sensible baseline to measure everything else against.
-    \item \textbf{Random Forest} --- builds a whole forest of 200 individual trees, each trained on a slightly different slice of the data, and combines their outputs to dampen individual errors.
-    \item \textbf{XGBoost} --- goes a step further by building trees one after another, each focused on correcting whatever the current ensemble got wrong.
-    \item \textbf{Stacking Ensemble} --- blends all three base models through a Logistic Regression meta-learner trained on out-of-fold probability outputs, with \texttt{passthrough=True} so the meta-learner can directly inspect the raw feature values as well.
+    \item \textbf{Decision Tree}~\cite{quinlan1986} --- easy to follow, straightforward to explain to a non-technical person, and a sensible baseline to measure everything else against.
+    \item \textbf{Random Forest}~\cite{breiman2001} --- builds a whole forest of 200 individual trees, each trained on a slightly different slice of the data, and combines their outputs to dampen individual errors.
+    \item \textbf{XGBoost}~\cite{chen2016xgboost} --- goes a step further by building trees one after another, each focused on correcting whatever the current ensemble got wrong.
+    \item \textbf{Stacking Ensemble}~\cite{wolpert1992} --- blends all three base models through a Logistic Regression meta-learner trained on out-of-fold probability outputs, with \texttt{passthrough=True} so the meta-learner can directly inspect the raw feature values as well.
 \end{itemize}
 
 Two additional elements were woven into the pipeline: (1) an \textbf{age-aware feature} sampled from clinically grounded age distributions for each disease, and (2) a \textbf{50\% symptom dropout} step that mimics the incomplete symptom reporting seen in real-world clinical encounters. The system takes a vector of severity scores and patient age as input, and returns one predicted disease label from 41 possible conditions.
@@ -234,11 +250,11 @@ Before writing a single line of code, we sat down and agreed on what we actually
 
 The push to automate medical diagnosis actually predates modern machine learning by several decades. Rule-based expert systems in the 1980s tried to capture a physician's reasoning by encoding clinical logic as explicit if-then statements. The fundamental weakness of those systems was rigidity --- the moment a patient walked in with an unusual symptom combination not anticipated by the rulebook, performance fell apart. Data-driven machine learning addressed this head-on by learning directly from patient records rather than relying on hand-crafted rules.
 
-\textbf{Early symptom-based ML efforts} continued to face challenges due to the inherently messy nature of clinical data. Kononenko (2001) evaluated several classifiers on medical datasets and reported that even Naive Bayes --- which assumes full statistical independence between features, a clearly incorrect assumption for symptoms --- managed competitive accuracy. That finding is actually quite telling: if a model built on a fundamentally wrong assumption can perform reasonably well, a well-tuned tree ensemble working with severity-weighted features should do considerably better. During the same period, decision trees became especially popular in clinical contexts because they produced human-readable rules. A clinician could look at the tree, spot a branch that seemed medically nonsensical, and raise it with the data scientist --- an oversight loop that no black-box method supports.
+\textbf{Early symptom-based ML efforts} continued to face challenges due to the inherently messy nature of clinical data. Kononenko~\cite{kononenko2001} evaluated several classifiers on medical datasets and reported that even Naive Bayes --- which assumes full statistical independence between features, a clearly incorrect assumption for symptoms --- managed competitive accuracy. That finding is actually quite telling: if a model built on a fundamentally wrong assumption can perform reasonably well, a well-tuned tree ensemble working with severity-weighted features should do considerably better. During the same period, decision trees~\cite{quinlan1986} became especially popular in clinical contexts because they produced human-readable rules. A clinician could look at the tree, spot a branch that seemed medically nonsensical, and raise it with the data scientist --- an oversight loop that no black-box method supports.
 
-The arrival of Random Forests (Breiman, 2001) was a significant moment for structured classification problems. Breiman's central insight was deceptively simple: the weaknesses of individual decision trees --- overfitting, sensitivity to noise and outliers --- largely cancel out when you combine many trees, each trained on a different random subsample of the data with a different random subset of features at each split. In a medical setting, where symptom severity values are inherently noisy and many symptoms co-occur across unrelated diseases, this variance-reduction property is especially valuable. Later work, including Rajpurkar et al.\ (2017) on radiology, reinforced the finding that ensemble methods generalise far more reliably than standalone models when class distributions overlap.
+The arrival of Random Forests~\cite{breiman2001} was a significant moment for structured classification problems. Breiman's central insight was deceptively simple: the weaknesses of individual decision trees --- overfitting, sensitivity to noise and outliers --- largely cancel out when you combine many trees, each trained on a different random subsample of the data with a different random subset of features at each split. In a medical setting, where symptom severity values are inherently noisy and many symptoms co-occur across unrelated diseases, this variance-reduction property is especially valuable. Later work by Rajpurkar et al.~\cite{rajpurkar2017} on radiology reinforced the finding that ensemble methods generalise far more reliably than standalone models when class distributions overlap. Liaw and Wiener~\cite{liaw2002} further demonstrated Random Forest's robustness in high-dimensional feature spaces, which directly parallels our 135-feature symptom matrix.
 
-Gradient boosting followed a different path to similarly strong results. Where Random Forest constructs trees independently and averages them, XGBoost (Chen \& Guestrin, 2016) builds trees in strict sequence, with every successive tree trained to minimise the residual loss of the current ensemble. For a 41-class problem in which several hepatitis variants look nearly identical from a symptom standpoint, this iterative error-correction mechanism is a natural match --- the model is given multiple passes to refine its output on the cases it consistently gets wrong.
+Gradient boosting~\cite{friedman2001} followed a different path to similarly strong results. Where Random Forest constructs trees independently and averages them, XGBoost~\cite{chen2016xgboost} builds trees in strict sequence, with every successive tree trained to minimise the residual loss of the current ensemble. For a 41-class problem in which several hepatitis variants look nearly identical from a symptom standpoint, this iterative error-correction mechanism is a natural match --- the model is given multiple passes to refine its output on the cases it consistently gets wrong. The stacking generalisation principle underlying our meta-learner was formalised by Wolpert~\cite{wolpert1992} and later extended by Ting and Witten~\cite{ting1999stacking}, who demonstrated that combining diverse base learners through a trained combiner consistently outperforms individual models on structured classification tasks.
 
 \textbf{The gap in existing literature} is mostly one of ambition and scope. A substantial portion of published clinical ML systems tackle only one or two diseases, or simplify the problem to a binary healthy-versus-sick question. Our system handles 41 disease classes in a single unified model, which is both harder and more practically useful. The severity-weighted feature encoding we adopted also goes well beyond the simple binary presence/absence flags that dominate prior work, giving the classifier richer signal to work with.
 
@@ -247,7 +263,7 @@ Gradient boosting followed a different path to similarly strong results. Where R
 % ================================================================
 
 \subsection{Source}
-For this project we used the publicly available dataset published on Kaggle by \textit{itachi9604} (full citation in References), accessed via the GitHub mirror maintained by \textit{amMistic}. The data is split across two files:
+For this project we used the publicly available dataset published on Kaggle by \textit{itachi9604}~\cite{itachi2020}, accessed via the GitHub mirror maintained by \textit{amMistic}~\cite{ammistic2023}. The data is split across two files:
 
 \begin{itemize}
     \item \texttt{disease\_raw.csv} --- 4,925 patient records, each one listing up to 17 symptoms by name.
@@ -258,7 +274,15 @@ For this project we used the publicly available dataset published on Kaggle by \
 
 \begin{table}[H]
 \centering
-\caption{Dataset Summary}
+\caption{Summary of the Disease Symptom Prediction Dataset~\cite{itachi2020}. The dataset is
+sourced from two CSV files: \texttt{disease\_raw.csv} (patient symptom records) and
+\texttt{symptom\_severity.csv} (clinical severity weights 1--7 per symptom). After
+severity-weighted vectorisation, 50\% symptom dropout, age-feature augmentation, and
+zero-variance filtering, the final model-ready matrix contains \textbf{135 features} across
+\textbf{4,925 records} spanning \textbf{41 disease classes}. The 80/20 stratified split
+(Section~\ref{subsec:preprocess}) ensures all 41 classes are proportionally represented
+in both training and evaluation subsets.}
+\label{tab:dataset}
 \begin{tabular}{ll}
 \toprule
 \textbf{Property} & \textbf{Details} \\
@@ -267,9 +291,9 @@ Total Records       & 4,925 \\
 Disease Classes     & 41 \\
 Symptom Features    & 136 (after vectorisation) + 1 age feature = \textbf{137 total} \\
 Feature Type        & Severity-weighted (0 = absent, 1--7 = present) + patient age \\
-Features after Filtering & 135 (zero-variance features removed) \\
+Features after Filtering & 135 (zero-variance features removed via \texttt{VarianceThreshold}) \\
 Missing Values      & 0 (after preprocessing) \\
-Train / Test Split  & 80\% / 20\% (stratified) \\
+Train / Test Split  & 80\% / 20\% stratified (3,940 train $|$ 985 test) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -285,12 +309,14 @@ On top of this, we introduced a \textbf{patient age feature} anchored in clinica
 
 % ================================================================
 \section{Methodology}
+\label{sec:methodology}
 % ================================================================
 
 \subsection{Data Collection}
 Both dataset files were pulled directly from their publicly accessible GitHub URLs using \texttt{curl}. No API tokens, login credentials, or institutional access were required. The files were stored locally inside a \texttt{dataset/} subfolder within the project directory, keeping paths consistent across all notebook cells.
 
 \subsection{Data Preprocessing}
+\label{subsec:preprocess}
 
 Going from raw CSV files to a clean, model-ready matrix involved several careful steps:
 
@@ -320,42 +346,67 @@ Before jumping straight into modelling, we spent some time actually exploring wh
     \item \textbf{Correlation Heatmap:} Examining the top 20 most common symptoms revealed noticeable co-occurrence patterns within disease-specific groups. For instance, \textit{yellowing of eyes}, \textit{dark urine}, and \textit{loss of appetite} tend to appear together in hepatitis-related conditions. These clustered correlations are precisely the kind of structure that tree-based models are good at picking up and exploiting.
 \end{itemize}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.92\textwidth]{correlation_heatmap.png}
-    \caption{Correlation Heatmap of Top 20 Symptoms}
-\end{figure}
+\noindent Figure~\ref{fig:heatmap} maps these co-occurrence patterns as a Pearson correlation heatmap across the top 20 symptoms, making the disease-specific clusters immediately visible and confirming that the raw severity weights carry structured signal rather than random noise.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\textwidth]{class_distribution.png}
-    \caption{Disease Class Distribution}
+    \includegraphics[width=0.92\textwidth]{correlation_heatmap.png}
+    \caption{Pearson correlation heatmap of the top 20 most frequently occurring symptoms
+    (by total severity weight) across all 4,925 patient records. Cell values represent the
+    Pearson correlation coefficient between each symptom pair; red shading indicates positive
+    co-occurrence and blue indicates inverse co-occurrence. Notable clusters include
+    \textit{yellowing\_of\_eyes}, \textit{dark\_urine}, and \textit{loss\_of\_appetite}
+    (upper-left block, $r \approx 0.6$--$0.8$), which correspond to hepatitis-related
+    conditions, and the \textit{sweating}/\textit{chills}/\textit{high\_fever} cluster
+    associated with acute febrile illnesses. These co-occurrence patterns motivate the use of
+    tree-based models~\cite{breiman2001}, which naturally capture feature interactions without
+    explicit encoding. Generated using Seaborn~\cite{waskom2021seaborn} (see Cell~9 in the
+    Appendix).}
+    \label{fig:heatmap}
 \end{figure}
+
+\noindent Figure~\ref{fig:classdist} confirms that the dataset is well-balanced across all
+41 disease classes, which validates the use of accuracy as the primary evaluation metric and removes the need for class-weighting or resampling strategies such as SMOTE during training.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.92\textwidth]{class_distribution.png}
+    \caption{Distribution of records across all 41 disease classes in the dataset~\cite{itachi2020}.
+    Each bar represents one disease; the dataset is approximately balanced with roughly
+    120 records per class (range: 114--132). This near-uniform distribution means
+    accuracy is a meaningful evaluation metric --- no classifier can inflate its score
+    simply by predicting the most frequent class. The balanced distribution also eliminates
+    the need for class-weighting or oversampling techniques such as SMOTE~\cite{chawla2002smote}
+    in our pipeline. As discussed in Section~\ref{sec:results}, the stratified 80/20 split
+    preserves these proportions in both the training and test subsets. Generated using
+    Seaborn (see Cell~7 in the Appendix).}
+    \label{fig:classdist}
+\end{figure}
+
+\noindent Taken together, the three EDA findings --- a well-balanced class distribution, a small set of high-frequency but low-discrimination symptoms, and clear co-occurrence clusters within disease families --- directly shaped our modelling choices. The hepatitis cluster in particular signalled that any classifier would need to work with fine-grained severity distinctions rather than broad symptom presence, reinforcing the decision to use weighted encoding throughout the pipeline.
 
 \subsection{Model Development}
 
 \subsubsection{Decision Tree Classifier}
-Quinlan (1986) formalised the core idea behind decision trees: at every internal node, select the feature whose split best separates the remaining disease classes, continue recursively down each branch, and halt when a leaf is pure or close enough to it. In our setup, the Gini impurity criterion selects the symptom that most cleanly divides the classes at each step --- a question like ``is the severity of yellowing of eyes above 3?'' would, for instance, route a patient firmly toward hepatitis-related conditions.
+Quinlan~\cite{quinlan1986} formalised the core idea behind decision trees: at every internal node, select the feature whose split best separates the remaining disease classes, continue recursively down each branch, and halt when a leaf is pure or close enough to it. In our setup, the Gini impurity criterion~\cite{breiman1984cart} selects the symptom that most cleanly divides the classes at each step --- a question like ``is the severity of yellowing of eyes above 3?'' would, for instance, route a patient firmly toward hepatitis-related conditions.
 
 We selected the Decision Tree as our baseline specifically for its transparency. If a patient wants to know why the system is pointing toward malaria, you can trace the exact path through the tree and give a clear, step-by-step answer in plain language --- something no ensemble model can offer. We deliberately did not cap the tree depth, allowing it to absorb the full complexity of the training data. This naturally leads to more overfitting, which we fully expected given the added noise from the 50\% symptom dropout step.
 
 \textbf{Configuration:} \texttt{criterion='gini'}, \texttt{random\_state=42}, no depth constraint (intentional --- serves as an upper-complexity baseline).
 
 \subsubsection{Random Forest Classifier}
-Following Breiman (2001), our Random Forest grows 200 individual decision trees, each on a different bootstrap sample of the training data and each constrained to a random subset of features at every split point. The final prediction is determined by a majority vote across all 200 trees.
+Following Breiman~\cite{breiman2001}, our Random Forest grows 200 individual decision trees, each on a different bootstrap sample of the training data and each constrained to a random subset of features at every split point. The final prediction is determined by a majority vote across all 200 trees.
 
 We settled on 200 estimators to give the ensemble sufficient diversity to absorb the extra variance introduced by both the 50\% symptom dropout and the newly added age feature. Because each tree sees a slightly different random view of the data, individual trees make different kinds of errors --- and those errors tend to cancel each other out when aggregated across the full forest.
 
-\textbf{Configuration:} \texttt{n\_estimators=200}, \texttt{random\_state=42},\\
-\hspace*{2.6cm}\texttt{n\_jobs=-1} (all available CPU cores used for training).
+\textbf{Configuration:} \texttt{n\_estimators=200}, \texttt{random\_state=42}, \texttt{n\_jobs=-1} (all available CPU cores).
 
 \subsubsection{XGBoost Classifier}
-We included XGBoost (Chen \& Guestrin, 2016) because it tackles the class-overlap problem quite differently from a Random Forest. Rather than growing 100 trees in parallel and averaging their outputs, it builds them one after another --- each tree is specifically trained to reduce whatever residual loss the existing ensemble still carries. The learning rate of 0.1 governs how aggressively each new tree corrects its predecessor; keeping it moderate reduces the risk of overfitting to noisy training samples.
+We included XGBoost~\cite{chen2016xgboost} because it tackles the class-overlap problem quite differently from a Random Forest. The gradient boosting framework was originally formalised by Friedman~\cite{friedman2001}; XGBoost extends it with second-order gradient approximations, column sub-sampling, and built-in regularisation. Rather than growing trees in parallel and averaging their outputs, it builds them one after another --- each tree specifically trained to reduce the residual loss the existing ensemble still carries. The learning rate of 0.1 governs how aggressively each new tree corrects its predecessor; keeping it moderate reduces the risk of overfitting to noisy training samples.
 
 Setting \texttt{max\_depth=6} prevents individual trees from becoming overly specialised on the dropout-induced noise in our feature matrix. We chose \texttt{mlogloss} as the evaluation metric because it is tailored for multi-class problems and penalises over-confident wrong predictions more heavily than cautious ones --- a sensible priority in a medical setting.
 
-\textbf{Configuration:} \texttt{n\_estimators=100}, \texttt{learning\_rate=0.1},\\
-\hspace*{2.6cm}\texttt{max\_depth=6}, \texttt{eval\_metric='mlogloss'}.
+\textbf{Configuration:} \texttt{n\_estimators=100}, \texttt{learning\_rate=0.1}, \texttt{max\_depth=6}, \newline \texttt{eval\_metric='mlogloss'}.
 
 \subsubsection{Stacking Ensemble Classifier}
 The Stacking Ensemble ties together all three base learners using a Logistic Regression meta-learner, trained via 5-fold stratified cross-validation to guard against data leakage. During training, each base model produces out-of-fold probability predictions over the training set; these predictions, concatenated with the original feature set (\texttt{passthrough=True}), form the meta-features that the Logistic Regression learns from. At inference time, the base models generate probability outputs on the test set, which are joined with the original test features and handed to the meta-learner for the final prediction.
@@ -381,15 +432,20 @@ Each model was evaluated against the same held-out test set of 985 samples, usin
     \item \textbf{Confusion Matrix} --- a class-by-class breakdown showing exactly which diseases are being mixed up with which others. This gives a far more complete picture than accuracy alone.
 \end{itemize}
 
+\noindent Accuracy, precision, recall, and F1 were computed using Scikit-learn's \texttt{classification\_report}~\cite{pedregosa2011} with \texttt{average='macro'}, treating every disease class equally regardless of sample count. The confusion matrices were normalised row-wise, so each cell shows the fraction of actual instances of a given class assigned to each predicted class --- making it straightforward to spot where a model systematically misclassifies one disease as another. All four classifiers were evaluated identically, ensuring that any differences in the resulting metrics reflect genuine algorithmic behaviour rather than evaluation artefacts.
+
+\noindent The decision to use \textbf{macro-averaging} rather than weighted averaging was deliberate. Weighted averaging would give more influence to the more frequent classes, which in a well-balanced dataset like ours would produce numbers very similar to macro-averaging --- but the distinction matters in principle. Since our goal is a system that performs reliably across all 41 disease classes, including rare ones, treating every class with equal weight in the average gives a more honest picture of generalisation. A model that predicts the five most common diseases perfectly but collapses on the remaining 36 would still achieve a misleadingly high weighted F1; macro-averaging penalises that behaviour directly.
+
+\noindent The 985-sample test set also deserves a brief comment on statistical reliability. With 41 disease classes and stratified splitting, each class contributes approximately 24 test samples. At that scale, a single misclassified sample shifts a class recall by about 4 percentage points --- so small numerical differences between models (for example, the 0.20-point gap between Stacking Ensemble and Random Forest) should be interpreted cautiously as trends rather than definitive rankings. What the evaluation does establish convincingly is the ordering across models and the structural misclassification patterns within disease clusters, both of which are consistent with what the clinical literature would predict. The full per-class classification reports and raw confusion matrices are generated by Cells~15--17 in the Appendix.
+
 % ================================================================
 \newpage
 \section{System Architecture}
 % ================================================================
 
-Figure~\ref{fig:pipeline} shows the complete pipeline from loading the raw files all the way through to generating the final prediction, drawn using standard flowchart notation:
-\textbf{Oval} = Terminal (Start/End),
-\textbf{Parallelogram} = Input/Output,
-\textbf{Rectangle} = Process/Action,
+Figure~\ref{fig:pipeline} shows the complete pipeline from loading the raw files through to
+generating the final prediction, using standard flowchart notation: \textbf{Oval} =
+Terminal (Start/End), \textbf{Parallelogram} = Input/Output, \textbf{Rectangle} = Process,
 \textbf{Diamond} = Decision.
 
 \begin{figure}[H]
@@ -485,18 +541,38 @@ Figure~\ref{fig:pipeline} shows the complete pipeline from loading the raw files
 \label{fig:pipeline}
 \end{figure}
 
-\noindent
-Breaking the pipeline down into its logical layers makes the overall structure clearer:
+\noindent The pipeline proceeds through seven logical layers:
 
-\begin{itemize}
-    \item \textbf{Input (Parallelogram):} The two raw CSV files --- \texttt{disease\_raw.csv} holding patient records and \texttt{symptom\_severity.csv} providing the severity weight lookup.
-    \item \textbf{Feature Construction (Rectangle):} Assembles the severity-weighted feature matrix, applies the 50\% dropout simulation for incomplete reporting, and appends the epidemiological age column.
-    \item \textbf{Decision (Diamond):} Checks whether any missing values remain; the ``Yes'' branch drops those rows before proceeding. In practice, the dataset contains no missing values after preprocessing, so the ``No'' path is always followed.
-    \item \textbf{Preprocessing (Rectangle):} Encodes the target column as integer class indices, performs the stratified 80/20 train-test split, and removes zero-variance features from both subsets.
-    \item \textbf{Model Layer (Rectangle):} All four classifiers are trained in sequence on the processed training data; the Stacking Ensemble uses internal 5-fold stratified cross-validation to avoid data leakage.
-    \item \textbf{Evaluation (Rectangle):} Computes overall accuracy, per-class precision, recall and F1-score, and generates normalised confusion matrices for each model.
-    \item \textbf{Output (Parallelogram):} The predicted disease label for each test sample along with the full performance report.
-\end{itemize}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{3cm} p{10.5cm}@{}}
+\toprule
+\textbf{Layer (Symbol)} & \textbf{Description} \\
+\midrule
+Input (\textit{Parallelogram}) &
+  Load \texttt{disease\_raw.csv} (4,925 records) and \texttt{symptom\_severity.csv}
+  (severity weights 1--7 per symptom). \\[3pt]
+Feature Construction (\textit{Rectangle}) &
+  Build 136-column severity-weighted matrix; apply 50\% symptom dropout
+  (seed 42); append epidemiological age feature. \\[3pt]
+Decision (\textit{Diamond}) &
+  Check for missing values --- ``Yes'' branch drops affected rows.
+  In practice the ``No'' path is always taken (zero missing values after preprocessing). \\[3pt]
+Preprocessing (\textit{Rectangle}) &
+  Label-encode target column; stratified 80/20 split (3,940 train $|$ 985 test);
+  remove zero-variance features via \texttt{VarianceThreshold} ($\to$ 135 features). \\[3pt]
+Model Layer (\textit{Rectangle}) &
+  Train four classifiers on identical train subsets; Stacking Ensemble uses
+  5-fold stratified CV internally to prevent data leakage. \\[3pt]
+Evaluation (\textit{Rectangle}) &
+  Compute accuracy, macro precision, recall, F1; generate normalised
+  confusion matrices for all four models. \\[3pt]
+Output (\textit{Parallelogram}) &
+  Return predicted disease label and full performance report for the 985 test samples. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 % ================================================================
 \section{Implementation}
@@ -506,18 +582,26 @@ Breaking the pipeline down into its logical layers makes the overall structure c
 
 \begin{table}[H]
 \centering
-\caption{Technologies Used}
-\begin{tabular}{ll}
+\caption{Software tools and libraries used in the Disease Prediction System pipeline.
+All libraries are open-source and freely available. Scikit-learn~\cite{pedregosa2011}
+provides the Decision Tree, Random Forest, StackingClassifier, preprocessing utilities,
+and evaluation metrics. XGBoost~\cite{chen2016xgboost} is used as a standalone gradient
+boosting base learner. Matplotlib~\cite{hunter2007matplotlib} and
+Seaborn~\cite{waskom2021seaborn} produce all visualisations in Section~\ref{sec:results}.
+The complete reproducible implementation is available in the Appendix.}
+\label{tab:tech}
+\begin{tabular}{lll}
 \toprule
-\textbf{Tool / Library} & \textbf{Purpose} \\
+\textbf{Tool / Library} & \textbf{Version} & \textbf{Purpose} \\
 \midrule
-Python 3.9              & Core programming language \\
-Pandas                  & Data loading and manipulation \\
-NumPy                   & Numerical operations \\
-Scikit-learn            & Preprocessing, DT, RF, evaluation \\
-XGBoost                 & Gradient boosting classifier \\
-Matplotlib / Seaborn    & Visualisation \\
-Jupyter Notebook        & Interactive development environment \\
+Python              & 3.9+ & Core programming language \\
+Pandas~\cite{mckinney2010pandas} & 1.5+ & Data loading, wrangling, and feature matrix construction \\
+NumPy               & 1.23+ & Numerical array operations and random seed control \\
+Scikit-learn~\cite{pedregosa2011} & 1.2+ & Preprocessing, DT, RF, Stacking, evaluation metrics \\
+XGBoost~\cite{chen2016xgboost} & 1.7+ & Gradient boosting classifier \\
+Matplotlib~\cite{hunter2007matplotlib} & 3.6+ & Static plot generation \\
+Seaborn~\cite{waskom2021seaborn} & 0.12+ & Statistical visualisations (heatmaps, bar charts) \\
+Jupyter Notebook    & 6.5+ & Interactive development and reproducibility environment \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -597,71 +681,142 @@ stack_pred = stack_model.predict(X_test_sel)
 
 % ================================================================
 \section{Results}
+\label{sec:results}
 % ================================================================
 
 \subsection{Model Accuracy Comparison}
 
+Table~\ref{tab:results} and Figure~\ref{fig:modelcomp} summarise the classification
+performance of all four models on the 985-sample held-out test set.
+
 \begin{table}[H]
 \centering
-\caption{Model Performance on Test Set (985 samples, Age + Symptom Features)}
-\begin{tabular}{lccc}
+\caption{Classification performance of all four models on the held-out test set (985 samples,
+stratified 80/20 split). All metrics are macro-averaged across 41 disease classes, treating
+each class equally regardless of sample count. Accuracy = fraction of correctly classified
+samples. Precision = mean across classes of true positives / (true positives + false
+positives). Recall = mean across classes of true positives / (true positives + false
+negatives). F1 = harmonic mean of precision and recall. The Stacking Ensemble~\cite{wolpert1992}
+achieves the highest accuracy (93.50\%), outperforming the Decision Tree~\cite{quinlan1986}
+baseline by \textbf{+7.92 percentage points}. Confusion matrices for each model are
+presented in Figures~\ref{fig:cmdt}--\ref{fig:cmstack}. All experiments were run
+with \texttt{random\_state=42} for full reproducibility~\cite{pedregosa2011}.}
+\label{tab:results}
+\begin{tabular}{lcccc}
 \toprule
-\textbf{Model} & \textbf{Accuracy} & \textbf{Macro Precision} & \textbf{Macro Recall} \\
+\textbf{Model} & \textbf{Accuracy} & \textbf{Macro Precision} & \textbf{Macro Recall} & \textbf{Macro F1} \\
 \midrule
-Decision Tree         & 85.58\% & 0.86 & 0.86 \\
-XGBoost               & 91.47\% & 0.92 & 0.91 \\
-Random Forest (200)   & 93.30\% & 0.94 & 0.93 \\
-\textbf{Stacking Ensemble} & \textbf{93.50\%} & \textbf{0.94} & \textbf{0.93} \\
+Decision Tree~\cite{quinlan1986}         & 85.58\% & 0.86 & 0.86 & 0.86 \\
+XGBoost~\cite{chen2016xgboost}           & 91.47\% & 0.92 & 0.91 & 0.91 \\
+Random Forest~\cite{breiman2001} (200)   & 93.30\% & 0.94 & 0.93 & 0.93 \\
+\textbf{Stacking Ensemble}~\cite{wolpert1992} & \textbf{93.50\%} & \textbf{0.94} & \textbf{0.93} & \textbf{0.93} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\noindent Figure~\ref{fig:modelcomp} plots the same accuracy ranking visually, making the
+monotonic progression from Decision Tree to Stacking Ensemble immediately apparent.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\textwidth]{model_comparison.png}
-    \caption{Accuracy Comparison of Classification Models}
+    \includegraphics[width=0.70\textwidth]{model_comparison.png}
+    \caption{Bar chart comparing the test-set accuracy of the four classifiers described
+    in Section~\ref{sec:methodology} (see also Table~\ref{tab:results}). Each bar is
+    annotated with its exact accuracy value. The Stacking Ensemble (93.50\%) leads,
+    followed closely by Random Forest~\cite{breiman2001} (93.30\%), XGBoost~\cite{chen2016xgboost}
+    (91.47\%), and the Decision Tree~\cite{quinlan1986} baseline (85.58\%). The narrow
+    0.20-point gap between the Stacking Ensemble and Random Forest reflects the marginal
+    but consistent gain from the Logistic Regression meta-learner's ability to recover
+    cases where all three base models are simultaneously incorrect. Generated using
+    Matplotlib~\cite{hunter2007matplotlib} (see Cell~19 in the Appendix).}
+    \label{fig:modelcomp}
 \end{figure}
+
+\noindent The bar chart provides an aggregate view of performance, but accuracy alone cannot reveal \textit{which} diseases each model confuses with \textit{which} others. The confusion matrices in the following subsection address this directly, offering a class-by-class breakdown that exposes the residual misclassification patterns that a single percentage figure conceals.
 
 \subsection{Confusion Matrices}
 
-The confusion matrices that follow are normalised row-wise, meaning each cell shows the fraction of actual instances of a given class that were assigned to each possible predicted class. A perfect classifier would display 1.00 across the entire main diagonal and 0.00 in every off-diagonal position.
+Each matrix below is normalised row-wise: every cell shows the fraction of actual instances
+of a given class assigned to each predicted class. A perfect classifier shows 1.00 on every
+diagonal cell and 0.00 everywhere else. Figures~\ref{fig:cmdt}--\ref{fig:cmstack} present
+all four models in order of increasing accuracy, making the improvement trend visually
+traceable.
 
-\begin{figure}[H]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.95\textwidth]{cm_decision_tree.png}
-    \caption{Confusion Matrix -- Decision Tree (Normalised)}
+    \caption{Normalised confusion matrix --- Decision Tree~\cite{quinlan1986}, accuracy
+    \textbf{85.58\%} (985 test samples). The noisier diagonal reflects overfitting on the
+    50\% dropout noise. The hepatitis cluster (B/C/D/E) produces the most off-diagonal mass,
+    as their symptom profiles are clinically indistinguishable without laboratory tests.
+    Seaborn~\cite{waskom2021seaborn} (Cell~15, Appendix).}
+    \label{fig:cmdt}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.95\textwidth]{cm_random_forest.png}
-    \caption{Confusion Matrix -- Random Forest (Normalised)}
+    \caption{Normalised confusion matrix --- Random Forest~\cite{breiman2001} (200 trees),
+    accuracy \textbf{93.30\%}. Most classes reach recall $\geq 0.90$. Residual confusions
+    concentrate in the hepatitis cluster and between Dengue and Malaria. The +7.72 pt gain
+    over the Decision Tree stems from variance reduction via majority voting across 200
+    independently trained trees. Seaborn~\cite{waskom2021seaborn} (Cell~16, Appendix).}
+    \label{fig:cmrf}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.95\textwidth]{cm_xgboost.png}
-    \caption{Confusion Matrix -- XGBoost (Normalised)}
+    \caption{Normalised confusion matrix --- XGBoost~\cite{chen2016xgboost} (100 rounds,
+    \texttt{lr=0.1}), accuracy \textbf{91.47\%}. Sequential residual correction~\cite{friedman2001}
+    improves over the Decision Tree but underperforms Random Forest by 1.83 pt, as gradient
+    boosting amplifies noise from the 50\% dropout step.
+    Seaborn~\cite{waskom2021seaborn} (Cell~17, Appendix).}
+    \label{fig:cmxgb}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.95\textwidth]{cm_stacking.png}
-    \caption{Confusion Matrix -- Stacking Ensemble (Normalised)}
+    \caption{Normalised confusion matrix --- Stacking Ensemble~\cite{wolpert1992} (DT + RF +
+    XGB base learners, LR meta-learner, \texttt{passthrough=True}, 5-fold CV), accuracy
+    \textbf{93.50\%} --- the sharpest diagonal across all four models. The +0.20 pt gain
+    over Random Forest reflects the meta-learner correcting cases where all three base models
+    simultaneously output high-confidence wrong predictions.
+    Seaborn~\cite{waskom2021seaborn} (Cell~17, Appendix).}
+    \label{fig:cmstack}
 \end{figure}
 
 \subsection{Feature Importance}
 
+Figure~\ref{fig:featimport} ranks the top 20 features by mean decrease in Gini
+impurity~\cite{breiman1984cart} across all 200 Random Forest trees. \textit{Yellowing of
+eyes} (0.048) and \textit{dark urine} (0.044) lead the ranking --- both are near-definitive
+clinical markers of jaundice and hepatitis-related conditions. The fever cluster
+(\textit{sweating}, \textit{chills}, \textit{high fever}) ranks high in raw importance
+but is shared across many unrelated diseases, limiting its individual discriminative
+contribution. Most significantly, the engineered \textbf{age feature ranks 5th} (importance
+$\approx$ 0.035), confirming that the epidemiological age-range encoding provides genuine
+predictive signal beyond symptom patterns alone (discussed further in
+Section~\ref{sec:discussion}).
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{feature_importance.png}
-    \caption{Top 20 Feature Importances -- Random Forest}
+    \caption{Top 20 feature importance scores from the Random Forest~\cite{breiman2001} base
+    learner (200 estimators, \texttt{random\_state=42}), measured as mean decrease in Gini
+    impurity~\cite{breiman1984cart} across all splits in all trees. Jaundice-cluster symptoms
+    (\textit{yellowing of eyes}, \textit{dark urine}) dominate, followed by febrile-illness
+    markers and --- critically --- the engineered \textbf{age feature at rank 5 (0.035)},
+    validating the epidemiological prior encoding. The importance ordering is consistent with
+    established clinical diagnostic hierarchies. Generated using
+    Seaborn~\cite{waskom2021seaborn} (Cell~20 in the Appendix).}
+    \label{fig:featimport}
 \end{figure}
-
-The Random Forest component (serving as a base learner within the Stacking Ensemble) flagged symptoms like \textit{yellowing of eyes}, \textit{dark urine}, \textit{sweating}, and \textit{chills} as the most discriminative signals across all 41 classes. What is particularly encouraging is that the \textit{age} feature also appears prominently among the top importances --- this confirms that the epidemiological prior knowledge we encoded contributed real predictive value, not just noise. These symptoms tend to cluster tightly within specific disease groups (jaundice-related conditions, for instance) and are unlikely to appear in the same combination across unrelated diseases, which is why the model latches onto them.
 
 % ================================================================
 \section{Discussion}
+\label{sec:discussion}
 % ================================================================
 
 \subsection{What the Numbers Actually Mean}
@@ -734,43 +889,162 @@ Our recommendation for any deployment scenario is the Stacking Ensemble. More br
 
 \begin{table}[H]
 \centering
-\caption{Team Contributions}
+\caption{Individual contributions of each team member to the Disease Prediction System
+project. All four members jointly attended design review meetings, participated in
+debugging sessions, and reviewed the final notebook and report before submission.
+The division below reflects each member's primary ownership area.}
+\label{tab:team}
 \small
 \begin{tabular}{|c|p{3.5cm}|p{7.8cm}|}
 \hline
 \textbf{Candidate} & \textbf{Name} & \textbf{Contribution} \\
 \hline
-A & NAME 1 & Dataset collection, severity-weighted feature construction, data preprocessing \\
+A & Saswat Barai & Overall project conceptualisation and system architecture design,
+            Stacking Ensemble~\cite{wolpert1992} design (\texttt{passthrough=True}, 5-fold CV,
+            LR meta-learner), pipeline integration, model evaluation, and confusion matrix
+            analysis (Figures~\ref{fig:cmdt}--\ref{fig:cmstack}) \\
 \hline
-B & NAME 2 & Model development -- Decision Tree, Random Forest, XGBoost training and tuning \\
+B & Debananda Behera & Presentation development (PowerPoint slides), \LaTeX{} project report
+            writing, literature review, and minor code adjustments during integration
+            and testing \\
 \hline
-C & NAME 3 & Model evaluation, confusion matrix plots, feature importance analysis \\
+C & Ayan Bhattacharjee & Implementation of all three base classifiers ---
+            Decision Tree~\cite{quinlan1986} (\texttt{criterion='gini'}),
+            Random Forest~\cite{breiman2001} (200 estimators),
+            and XGBoost~\cite{chen2016xgboost} (100 rounds, \texttt{lr=0.1}) ---
+            including training, hyperparameter selection, and per-model evaluation \\
 \hline
-D & NAME 4 & Documentation, LaTeX report writing, presentation preparation \\
+D & Amit Kumar Bhukta & Dataset sourcing~\cite{itachi2020,ammistic2023},
+            severity-weighted feature matrix construction, 50\% symptom dropout
+            simulation, and epidemiological age-range feature engineering \\
 \hline
 \end{tabular}
 \end{table}
 
-\vspace{0.4cm}
 Beyond the formal division above, all four of us sat together for every major decision point, helped one another debug when things were not working as expected, and reviewed the final notebook and report together as a group before submission.
 
 % ================================================================
 \section{References}
 % ================================================================
 
-\begin{enumerate}
-    \item Breiman, L. (2001). Random Forests. \textit{Machine Learning}, 45(1), 5--32.
-    \item Chen, T., \& Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. \textit{Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, 785--794.
-    \item Kononenko, I. (2001). Machine learning for medical diagnosis: History, state of the art and perspective. \textit{Artificial Intelligence in Medicine}, 23(1), 89--109.
-    \item Quinlan, J. R. (1986). Induction of Decision Trees. \textit{Machine Learning}, 1(1), 81--106.
-    \item Rajpurkar, P., Irvin, J., Ball, R. L., et al. (2017). CheXNet: Radiologist-Level Pneumonia\\
-          Detection on Chest X-Rays with Deep Learning. \textit{arXiv preprint arXiv:1711.05225}.
-    \item itachi9604. (2020). \textit{Disease Symptom Prediction Dataset}. Kaggle.
-          \newline\footnotesize\texttt{kaggle.com/datasets/itachi9604/}\\\hspace*{1em}\texttt{disease-symptom-description-dataset}\normalsize
-    \item amMistic. (2023). \textit{Diseases-Prediction-based-on-Symptoms}. GitHub.
-          \newline\footnotesize\texttt{github.com/amMistic/Diseases-Prediction-based-on-Symptoms}\normalsize
-    \item Pedregosa, F., et al. (2011). Scikit-learn: Machine Learning in Python. \textit{Journal of Machine Learning Research}, 12, 2825--2830.
-\end{enumerate}
+\begin{thebibliography}{99}
+
+\bibitem{breiman2001}
+Breiman, L. (2001).
+Random Forests.
+\textit{Machine Learning}, \textbf{45}(1), 5--32.
+\url{https://doi.org/10.1023/A:1010933404324}
+
+\bibitem{breiman1984cart}
+Breiman, L., Friedman, J., Stone, C.~J., \& Olshen, R.~A. (1984).
+\textit{Classification and Regression Trees}.
+Wadsworth \& Brooks/Cole, Pacific Grove, CA.
+
+\bibitem{chen2016xgboost}
+Chen, T., \& Guestrin, C. (2016).
+XGBoost: A Scalable Tree Boosting System.
+In \textit{Proceedings of the 22nd ACM SIGKDD International Conference on
+Knowledge Discovery and Data Mining} (pp.\ 785--794). ACM.
+\url{https://doi.org/10.1145/2939672.2939785}
+
+\bibitem{chawla2002smote}
+Chawla, N.~V., Bowyer, K.~W., Hall, L.~O., \& Kegelmeyer, W.~P. (2002).
+SMOTE: Synthetic Minority Over-sampling Technique.
+\textit{Journal of Artificial Intelligence Research}, \textbf{16}, 321--357.
+\url{https://doi.org/10.1613/jair.953}
+
+\bibitem{friedman2001}
+Friedman, J.~H. (2001).
+Greedy Function Approximation: A Gradient Boosting Machine.
+\textit{The Annals of Statistics}, \textbf{29}(5), 1189--1232.
+\url{https://doi.org/10.1214/aos/1013203451}
+
+\bibitem{hunter2007matplotlib}
+Hunter, J.~D. (2007).
+Matplotlib: A 2D Graphics Environment.
+\textit{Computing in Science \& Engineering}, \textbf{9}(3), 90--95.
+\url{https://doi.org/10.1109/MCSE.2007.55}
+
+\bibitem{itachi2020}
+itachi9604 (2020).
+\textit{Disease Symptom Prediction Dataset} [Data set].
+Kaggle.
+\url{https://www.kaggle.com/datasets/itachi9604/disease-symptom-description-dataset}
+
+\bibitem{ammistic2023}
+amMistic (2023).
+\textit{Diseases-Prediction-based-on-Symptoms} [GitHub repository].
+\url{https://github.com/amMistic/Diseases-Prediction-based-on-Symptoms}
+
+\bibitem{kononenko2001}
+Kononenko, I. (2001).
+Machine Learning for Medical Diagnosis: History, State of the Art and Perspective.
+\textit{Artificial Intelligence in Medicine}, \textbf{23}(1), 89--109.
+\url{https://doi.org/10.1016/S0933-3657(01)00077-X}
+
+\bibitem{liaw2002}
+Liaw, A., \& Wiener, M. (2002).
+Classification and Regression by randomForest.
+\textit{R News}, \textbf{2}(3), 18--22.
+\url{https://CRAN.R-project.org/doc/Rnews/}
+
+\bibitem{mckinney2010pandas}
+McKinney, W. (2010).
+Data Structures for Statistical Computing in Python.
+In \textit{Proceedings of the 9th Python in Science Conference} (pp.\ 56--61).
+\url{https://doi.org/10.25080/Majora-92bf1922-00a}
+
+\bibitem{obermeyer2016}
+Obermeyer, Z., \& Emanuel, E.~J. (2016).
+Predicting the Future --- Big Data, Machine Learning, and Clinical Medicine.
+\textit{New England Journal of Medicine}, \textbf{375}(13), 1216--1219.
+\url{https://doi.org/10.1056/NEJMp1606181}
+
+\bibitem{pedregosa2011}
+Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O.,
+\ldots\ Duchesnay, {\'E}. (2011).
+Scikit-learn: Machine Learning in Python.
+\textit{Journal of Machine Learning Research}, \textbf{12}, 2825--2830.
+\url{https://jmlr.org/papers/v12/pedregosa11a.html}
+
+\bibitem{quinlan1986}
+Quinlan, J.~R. (1986).
+Induction of Decision Trees.
+\textit{Machine Learning}, \textbf{1}(1), 81--106.
+\url{https://doi.org/10.1007/BF00116251}
+
+\bibitem{rajpurkar2017}
+Rajpurkar, P., Irvin, J., Ball, R.~L., Zhu, K., Yang, B., Mehta, H.,
+\ldots\ Ng, A.~Y. (2017).
+CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning.
+\textit{arXiv preprint arXiv:1711.05225}.
+\url{https://arxiv.org/abs/1711.05225}
+
+\bibitem{ting1999stacking}
+Ting, K.~M., \& Witten, I.~H. (1999).
+Issues in Stacked Generalization.
+\textit{Journal of Artificial Intelligence Research}, \textbf{10}, 271--289.
+\url{https://doi.org/10.1613/jair.594}
+
+\bibitem{waskom2021seaborn}
+Waskom, M.~L. (2021).
+Seaborn: Statistical Data Visualization.
+\textit{Journal of Open Source Software}, \textbf{6}(60), 3021.
+\url{https://doi.org/10.21105/joss.03021}
+
+\bibitem{who2023}
+World Health Organization (2023).
+\textit{World Health Statistics 2023: Monitoring Health for the SDGs}.
+WHO Press, Geneva.
+\url{https://www.who.int/publications/i/item/9789240074323}
+
+\bibitem{wolpert1992}
+Wolpert, D.~H. (1992).
+Stacked Generalization.
+\textit{Neural Networks}, \textbf{5}(2), 241--259.
+\url{https://doi.org/10.1016/S0893-6083(05)80023-1}
+
+\end{thebibliography}
 
 % ================================================================
 \section{Appendix --- Complete Source Code}
@@ -784,7 +1058,14 @@ cell by cell in the order they were executed.
 
 \begin{table}[H]
 \centering
-\caption{Sample Records from Processed Dataset (symptom severity + age)}
+\caption{Four illustrative records from the processed feature matrix, showing severity-weighted
+symptom columns (integer scale 0--7 from~\cite{itachi2020}; 0 = symptom absent or zeroed by
+dropout), the epidemiologically sampled \textit{age} column (Section~\ref{subsec:preprocess}),
+and the target \textit{prognosis} label. The full matrix contains 135 such feature columns
+after zero-variance filtering (see Table~\ref{tab:dataset}). Note that Dengue (row 3) shows
+\textit{itching} at severity 7 but \textit{skin\_rash} at 0 --- an example of the 50\%
+dropout masking a co-occurring symptom, simulating real incomplete clinical reporting.}
+\label{tab:sample}
 \begin{tabular}{lcccccl}
 \toprule
 \textbf{itching} & \textbf{skin\_rash} & \textbf{fever} & \textbf{fatigue} & \textbf{age} & \textbf{\ldots} & \textbf{prognosis} \\
@@ -1098,7 +1379,6 @@ print(classification_report(y_test, rf_pred, target_names=le.classes_))
 \end{lstlisting}
 
 % ----------------------------------------------------------------
-\vspace{1.5cm}
 \subsection{Cell 13 --- XGBoost and Stacking Ensemble Training}
 % ----------------------------------------------------------------
 

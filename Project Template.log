@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.1)  7 MAY 2026 22:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.5.1)  12 MAY 2026 16:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -324,24 +324,31 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip55
 )
+(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip56
+\bibsep=\skip57
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count292
+)
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count292
+\lst@mode=\count293
 \lst@gtempboxa=\box55
 \lst@token=\toks25
-\lst@length=\count293
+\lst@length=\count294
 \lst@currlwidth=\dimen179
-\lst@column=\count294
-\lst@pos=\count295
+\lst@column=\count295
+\lst@pos=\count296
 \lst@lostspace=\dimen180
 \lst@width=\dimen181
-\lst@newlines=\count296
-\lst@lineno=\count297
+\lst@newlines=\count297
+\lst@lineno=\count298
 \lst@maxwidth=\dimen182
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-\c@lstnumber=\count298
-\lst@skipnumbers=\count299
+\c@lstnumber=\count299
+\lst@skipnumbers=\count300
 \lst@framebox=\box56
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
@@ -364,14 +371,21 @@ Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@hangindent=\dimen190
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count300
-\c@continuedfloat=\count301
+\c@caption@flags=\count301
+\c@continuedfloat=\count302
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count303
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count304
+)
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count302
+\c@float@type=\count305
 \float@exts=\toks26
 \float@box=\box57
 \@float@everytoks=\toks27
@@ -379,12 +393,12 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
-\labelindent=\skip56
+\labelindent=\skip58
 \enit@outerparindent=\dimen191
 \enit@toks=\toks28
 \enit@inbox=\box59
-\enit@count@id=\count303
-\enitdp@description=\count304
+\enit@count@id=\count306
+\enitdp@description=\count307
 )
 (/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
@@ -431,14 +445,14 @@ Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
 \pgf@yd=\dimen259
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count305
-\c@pgf@countb=\count306
-\c@pgf@countc=\count307
-\c@pgf@countd=\count308
+\c@pgf@counta=\count308
+\c@pgf@countb=\count309
+\c@pgf@countc=\count310
+\c@pgf@countd=\count311
 \t@pgf@toka=\toks33
 \t@pgf@tokb=\toks34
 \t@pgf@tokc=\toks35
-\pgf@sys@id@count=\count309
+\pgf@sys@id@count=\count312
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
 )
@@ -453,8 +467,8 @@ File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
 tex
 File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfsyssoftpath@smallbuffer@items=\count310
-\pgfsyssoftpath@bigbuffer@items=\count311
+\pgfsyssoftpath@smallbuffer@items=\count313
+\pgfsyssoftpath@bigbuffer@items=\count314
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
 tex
@@ -467,7 +481,7 @@ Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen260
-\pgfmath@count=\count312
+\pgfmath@count=\count315
 \pgfmath@box=\box61
 \pgfmath@toks=\toks36
 \pgfmath@stack@operand=\toks37
@@ -492,7 +506,7 @@ tex)
 thmetics.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count313
+\c@pgfmathroundto@lastzeros=\count316
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
@@ -531,7 +545,7 @@ File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfpic=\box62
 \pgf@hbox=\box63
 \pgf@layerbox@main=\box64
-\pgf@picture@serial@count=\count314
+\pgf@picture@serial@count=\count317
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
 ode.tex
@@ -564,8 +578,8 @@ File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@max=\dimen284
-\pgf@sys@shading@range@num=\count315
-\pgf@shadingcount=\count316
+\pgf@sys@shading@range@num=\count318
+\pgf@shadingcount=\count319
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
@@ -623,7 +637,7 @@ Package: tikz 2023-01-15 v3.1.10 (3.1.10)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
 .code.tex
 File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count317
+\pgf@plot@mark@count=\count320
 \pgfplotmarksize=\dimen289
 )
 \tikz@lastx=\dimen290
@@ -638,18 +652,18 @@ File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \tikz@figbox@bg=\box68
 \tikz@tempbox=\box69
 \tikz@tempbox@bg=\box70
-\tikztreelevel=\count318
-\tikznumberofchildren=\count319
-\tikznumberofcurrentchild=\count320
-\tikz@fig@count=\count321
+\tikztreelevel=\count321
+\tikznumberofchildren=\count322
+\tikznumberofcurrentchild=\count323
+\tikz@fig@count=\count324
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count322
-\pgfmatrixcurrentcolumn=\count323
-\pgf@matrix@numberofcolumns=\count324
+\pgfmatrixcurrentrow=\count325
+\pgfmatrixcurrentcolumn=\count326
+\pgf@matrix@numberofcolumns=\count327
 )
-\tikz@expandcount=\count325
+\tikz@expandcount=\count328
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarytopaths.code.tex
@@ -675,37 +689,80 @@ File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
 zlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 24.
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2023/03/13 v3.1a Micro-typographical refinements (RS)
+\MT@toks=\toks41
+\MT@tempbox=\box71
+\MT@count=\count329
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1059.
+LaTeX Info: Redefining \leftprotrusion on input line 1060.
+\MT@prot@toks=\toks42
+LaTeX Info: Redefining \rightprotrusion on input line 1078.
+LaTeX Info: Redefining \textls on input line 1368.
+\MT@outer@kern=\dimen302
+LaTeX Info: Redefining \textmicrotypecontext on input line 1988.
+\MT@listname@count=\count330
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2023/03/13 v3.1a Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 902.
+LaTeX Info: Redefining \lslig on input line 902.
+\MT@outer@space=\skip59
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2023/03/13 v3.1a microtype main configuration file (RS)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/ragged2e/ragged2e.sty
+Package: ragged2e 2023/06/22 v3.6 ragged2e Package
+\CenteringLeftskip=\skip60
+\RaggedLeftLeftskip=\skip61
+\RaggedRightLeftskip=\skip62
+\CenteringRightskip=\skip63
+\RaggedLeftRightskip=\skip64
+\RaggedRightRightskip=\skip65
+\CenteringParfillskip=\skip66
+\RaggedLeftParfillskip=\skip67
+\RaggedRightParfillskip=\skip68
+\JustifyingParfillskip=\skip69
+\CenteringParindent=\skip70
+\RaggedLeftParindent=\skip71
+\RaggedRightParindent=\skip72
+\JustifyingParindent=\skip73
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 28.
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count326
-\l__pdf_internal_box=\box71
+\l__color_backend_stack_int=\count331
+\l__pdf_internal_box=\box72
 )
 (./Project Template.aux)
 \openout1 = `"Project Template.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -743,17 +800,17 @@ LaTeX Font Info:    ... okay on input line 43.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count327
-\scratchdimen=\dimen302
-\scratchbox=\box72
-\nofMPsegments=\count328
-\nofMParguments=\count329
-\everyMPshowfont=\toks41
-\MPscratchCnt=\count330
-\MPscratchDim=\dimen303
-\MPnumerator=\count331
-\makeMPintoPDFobject=\count332
-\everyMPtoPDFconversion=\toks42
+\scratchcounter=\count332
+\scratchdimen=\dimen303
+\scratchbox=\box73
+\nofMPsegments=\count333
+\nofMParguments=\count334
+\everyMPshowfont=\toks43
+\MPscratchCnt=\count335
+\MPscratchDim=\dimen304
+\MPnumerator=\count336
+\makeMPintoPDFobject=\count337
+\everyMPtoPDFconversion=\toks44
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -763,136 +820,228 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 43.
+Package hyperref Info: Link coloring ON on input line 49.
 
 (./Project Template.out) (./Project Template.out)
 \@outlinefile=\write4
 \openout4 = `"Project Template.out"'.
 
-\c@lstlisting=\count333
+\c@lstlisting=\count338
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
+LaTeX Info: Redefining \microtypecontext on input line 49.
+Package microtype Info: Applying patch `item' on input line 49.
+Package microtype Info: Applying patch `toc' on input line 49.
+Package microtype Info: Applying patch `eqnum' on input line 49.
+Package microtype Info: Applying patch `footnote' on input line 49.
+Package microtype Info: Applying patch `verbatim' on input line 49.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+LaTeX Info: Redefining \showhyphens on input line 49.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
 
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
 
 pdfTeX warning: pdflatex (file ./LOGO.pdf): PDF inclusion: found PDF version <1
 .7>, but at most version <1.5> allowed
 <LOGO.pdf, id=244, 794.97pt x 614.295pt>
 File: LOGO.pdf Graphic file (type pdf)
 <use LOGO.pdf>
-Package pdftex.def Info: LOGO.pdf  used on input line 49.
+Package pdftex.def Info: LOGO.pdf  used on input line 66.
 (pdftex.def)             Requested size: 128.0374pt x 98.93596pt.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./LOGO.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 135--136
-[]|\OT1/cmr/m/n/12 Signature:
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
+[]|\OT1/cmr/m/n/12 (+20) Signature:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 137--138
-[]|\OT1/cmr/m/n/12 Signature:
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+[]|\OT1/cmr/m/n/12 (+20) Signature:
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
-[]|\OT1/cmr/m/n/12 Signature:
+Underfull \hbox (badness 10000) in paragraph at lines 155--155
+[]|\OT1/cmr/m/n/12 (+20) AYAN BHAT-TACHAR-JEE
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
-[]|\OT1/cmr/m/n/12 Signature:
+Underfull \hbox (badness 10000) in paragraph at lines 155--156
+[]|\OT1/cmr/m/n/12 (+20) Signature:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
+[]|\OT1/cmr/m/n/12 (+20) Signature:
  []
 
 [2] (./Project Template.toc [3])
 \tf@toc=\write5
 \openout5 = `"Project Template.toc"'.
 
- [4] [5{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [6] [7]
-Overfull \hbox (2.05267pt too wide) in paragraph at lines 262--275
+ [4]
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [5] [6{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [7]
+Overfull \hbox (6.7621pt too wide) in paragraph at lines 286--299
  [][] 
  []
 
 [8] [9]
-<correlation_heatmap.png, id=367, 858.5676pt x 638.385pt>
+<correlation_heatmap.png, id=402, 858.5676pt x 638.385pt>
 File: correlation_heatmap.png Graphic file (type png)
 <use correlation_heatmap.png>
-Package pdftex.def Info: correlation_heatmap.png  used on input line 325.
+Package pdftex.def Info: correlation_heatmap.png  used on input line 353.
 (pdftex.def)             Requested size: 416.72963pt x 309.85013pt.
-<class_distribution.png, id=369, 998.7714pt x 275.5896pt>
+ [10]
+<class_distribution.png, id=415, 998.7714pt x 275.5896pt>
 File: class_distribution.png Graphic file (type png)
 <use class_distribution.png>
-Package pdftex.def Info: class_distribution.png  used on input line 331.
+Package pdftex.def Info: class_distribution.png  used on input line 373.
 (pdftex.def)             Requested size: 416.72963pt x 114.9857pt.
- [10 <./correlation_heatmap.png> <./class_distribution.png>] [11]
-Overfull \hbox (25.0878pt too wide) in paragraph at lines 367--368
-[]\OT1/cmr/m/n/12 Base learn-ers: De-ci-sion Tree (\OT1/cmtt/m/n/12 criterion='
-gini'\OT1/cmr/m/n/12 ), Ran-dom For-est (\OT1/cmtt/m/n/12 n[]estimators=200\OT1
-/cmr/m/n/12 ),
+ [11 <./correlation_heatmap.png>] [12 <./class_distribution.png>]
+Overfull \hbox (54.49701pt too wide) in paragraph at lines 409--410
+[]\OT1/cmr/bx/n/12 (-20) Configuration: \OT1/cmtt/m/n/12 n[]estimators=100\OT1/
+cmr/m/n/12 (-20) , \OT1/cmtt/m/n/12 learning[]rate=0.1\OT1/cmr/m/n/12 (-20) , \
+OT1/cmtt/m/n/12 max[]depth=6\OT1/cmr/m/n/12 (-20) , \OT1/cmtt/m/n/12 eval[]metr
+ic='mlogloss'\OT1/cmr/m/n/12 (-20) . 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
-[]\OT1/cmr/m/n/12 Figure 3: |End-to-End Sys-tem Pipeline Flowchart --- Stan-dar
-d Sym-bols
+Overfull \hbox (18.76915pt too wide) in paragraph at lines 418--419
+[]\OT1/cmr/m/n/12 (-20) Base learn-ers: De-ci-sion Tree (\OT1/cmtt/m/n/12 crite
+rion='gini'\OT1/cmr/m/n/12 (-20) ), Ran-dom For-est (\OT1/cmtt/m/n/12 n[]estima
+tors=200\OT1/cmr/m/n/12 (-20) ),
  []
 
-[12] [13] [14]
+[13]
+Overfull \hbox (41.04147pt too wide) in paragraph at lines 435--436
+\OT1/cmr/m/n/12 (-20) Accuracy, pre-ci-sion, re-call, and F1 were com-puted us-
+ing Scikit-learn's \OT1/cmtt/m/n/12 classification[]report \OT1/cmr/m/n/12 (-20
+) [[]]
+ []
+
+[14]
+Underfull \hbox (badness 1436) in paragraph at lines 553--553
+[]|\OT1/cmr/m/n/10.95 (+20) Input (\OT1/cmr/m/it/10.95 (+20) Par-al-lel-o-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 554--555
+[]|\OT1/cmr/m/n/10.95 (+20) Load \OT1/cmtt/m/n/10.95 disease[]raw.csv \OT1/cmr/
+m/n/10.95 (+20) (4,925 records) and
+ []
+
+
+Underfull \hbox (badness 3229) in paragraph at lines 554--555
+\OT1/cmtt/m/n/10.95 symptom[]severity.csv \OT1/cmr/m/n/10.95 (+20) (sever-ity w
+eights 1--7 per symp-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 559--559
+[]|\OT1/cmr/m/n/10.95 (+20) Decision (\OT1/cmr/m/it/10.95 (+20) Di-a-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 562--562
+[]|\OT1/cmr/m/n/10.95 (+20) Preprocessing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 565--565
+[]|\OT1/cmr/m/n/10.95 (+20) Model Layer
+ []
+
+[15]
+Overfull \hbox (14.90315pt too wide) in paragraph at lines 593--607
+ [][] 
+ []
+
+[16]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 541.
+nput line 626.
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 543.
- [15]
-<model_comparison.png, id=454, 637.4214pt x 275.1078pt>
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 628.
+ [17]
+Overfull \hbox (26.89735pt too wide) in paragraph at lines 705--715
+ [][] 
+ []
+
+<model_comparison.png, id=530, 637.4214pt x 275.1078pt>
 File: model_comparison.png Graphic file (type png)
 <use model_comparison.png>
-Package pdftex.def Info: model_comparison.png  used on input line 620.
-(pdftex.def)             Requested size: 294.42636pt x 127.07164pt.
-<cm_decision_tree.png, id=455, 1059.4782pt x 855.195pt>
+Package pdftex.def Info: model_comparison.png  used on input line 722.
+(pdftex.def)             Requested size: 317.07614pt x 136.84833pt.
+[18]
+<cm_decision_tree.png, id=570, 1059.4782pt x 855.195pt>
 File: cm_decision_tree.png Graphic file (type png)
 <use cm_decision_tree.png>
-Package pdftex.def Info: cm_decision_tree.png  used on input line 630.
+Package pdftex.def Info: cm_decision_tree.png  used on input line 747.
 (pdftex.def)             Requested size: 430.31812pt x 347.34383pt.
- [16 <./model_comparison.png>]
-<cm_random_forest.png, id=475, 1059.4782pt x 855.195pt>
+<cm_random_forest.png, id=573, 1059.4782pt x 855.195pt>
 File: cm_random_forest.png Graphic file (type png)
 <use cm_random_forest.png>
-Package pdftex.def Info: cm_random_forest.png  used on input line 636.
+Package pdftex.def Info: cm_random_forest.png  used on input line 758.
 (pdftex.def)             Requested size: 430.31812pt x 347.34383pt.
- [17 <./cm_decision_tree.png>]
-<cm_xgboost.png, id=482, 1059.4782pt x 855.195pt>
+<cm_xgboost.png, id=576, 1059.4782pt x 855.195pt>
 File: cm_xgboost.png Graphic file (type png)
 <use cm_xgboost.png>
-Package pdftex.def Info: cm_xgboost.png  used on input line 642.
+Package pdftex.def Info: cm_xgboost.png  used on input line 769.
 (pdftex.def)             Requested size: 430.31812pt x 347.34383pt.
-[18 <./cm_random_forest.png>]
-<cm_stacking.png, id=489, 1059.4782pt x 855.195pt>
+<cm_stacking.png, id=580, 1059.4782pt x 855.195pt>
 File: cm_stacking.png Graphic file (type png)
 <use cm_stacking.png>
-Package pdftex.def Info: cm_stacking.png  used on input line 648.
+Package pdftex.def Info: cm_stacking.png  used on input line 780.
 (pdftex.def)             Requested size: 430.31812pt x 347.34383pt.
- [19 <./cm_xgboost.png>]
-<feature_importance.png, id=497, 854.2314pt x 275.1078pt>
+<feature_importance.png, id=586, 854.2314pt x 275.1078pt>
 File: feature_importance.png Graphic file (type png)
 <use feature_importance.png>
-Package pdftex.def Info: feature_importance.png  used on input line 656.
+Package pdftex.def Info: feature_importance.png  used on input line 805.
 (pdftex.def)             Requested size: 416.72963pt x 134.2079pt.
- [20 <./cm_stacking.png> <./feature_importance.png>] [21] [22]
+ [19 <./model_comparison.png>] [20 <./cm_decision_tree.png> <./feature_importan
+ce.png>] [21 <./cm_random_forest.png>] [22 <./cm_xgboost.png>] [23 <./cm_stacki
+ng.png>] [24]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 724.
- [23]
-Overfull \hbox (48.13344pt too wide) in paragraph at lines 778--781
-\OT1/cmr/m/n/12 This ap-pendix con-tains the full, unabridged source code of th
-e \OT1/cmtt/m/n/12 Disease[]Prediction[]System.ipynb
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 880.
+
+Underfull \hbox (badness 2245) in paragraph at lines 917--920
+[]|\OT1/cmr/m/n/10.95 (+20) Dataset sourc-ing [[], []], severity-weighted
  []
 
-[24] [25] [26] [27]
-Overfull \hbox (1.36331pt too wide) in paragraph at lines 995--995
-[]\OT1/cmr/bx/n/14.4 Cell 8 --- Symp-tom Fre-quency and Age Dis-tri-bu-tion (ED
-A) 
+[25] [26]
+Underfull \hbox (badness 3954) in paragraph at lines 969--973
+[]\OT1/cmr/m/n/12 (+20) itachi9604 (2020). \OT1/cmr/m/it/12 (+20) Dis-ease Symp
+-tom Pre-dic-tion Dataset \OT1/cmr/m/n/12 (+20) [Data set]. Kag-
  []
 
-[28] [29] [30] [31] [32] [33] [34] (./Project Template.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 969--973
+\OT1/cmr/m/n/12 (+20) gle. [][]$\OT1/cmtt/m/n/12 https : / / www . kaggle . com
+ / datasets / itachi9604 / disease -[] symptom -[]
+ []
+
+
+Overfull \hbox (84.53587pt too wide) in paragraph at lines 1053--1056
+\OT1/cmr/m/n/12 (-20) This ap-pendix re-pro-duces the com-plete, unedited sourc
+e code from the \OT1/cmtt/m/n/12 Disease[]Prediction[]System.ipynb
+ []
+
+[27] [28] [29] [30] [31] [32] [33] [34] [35] [36] [37] [38]
+(./Project Template.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -901,28 +1050,30 @@ Package rerunfilecheck Info: File `"Project Template".out' has not changed.
 (rerunfilecheck)             Checksum: 5FD8E736E213EDF8714FCE317CF2A80B;11484.
  ) 
 Here is how much of TeX's memory you used:
- 25676 strings out of 476182
- 470185 string characters out of 5795596
- 2277975 words of memory out of 5000000
- 46767 multiletter control sequences out of 15000+600000
- 566240 words of font info for 65 fonts, out of 8000000 for 9000
+ 28427 strings out of 476182
+ 514513 string characters out of 5795596
+ 2338975 words of memory out of 5000000
+ 49214 multiletter control sequences out of 15000+600000
+ 574296 words of font info for 197 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 84i,10n,87p,878b,2033s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,13n,87p,1045b,2040s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-tt12.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on "Project Template.pdf" (34 pages, 1777353 bytes).
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></u
+sr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on "Project Template.pdf" (38 pages, 1844631 bytes).
 PDF statistics:
- 1103 PDF objects out of 1200 (max. 8388607)
- 1013 compressed objects within 11 object streams
- 544 named destinations out of 1000 (max. 500000)
- 530 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1267 PDF objects out of 1440 (max. 8388607)
+ 1168 compressed objects within 12 object streams
+ 561 named destinations out of 1000 (max. 500000)
+ 32274 words of extra memory for PDF output out of 35830 (max. 10000000)
 
